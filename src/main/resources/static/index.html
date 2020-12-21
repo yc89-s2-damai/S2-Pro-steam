@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home 01 || Gilbard</title>
+    <title>Steam游戏商城</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="assets/css/style.css">   
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 
 <body>
@@ -44,20 +46,19 @@
                     <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
                         <nav class="main-menu menu-style-2">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="index.html">主页</a></li>
                                 
-                                <li><a href="games.html">games</a>
+                                <li><a href="games.html">游戏</a>
                                     <ul class="sub-menu">
-                                        <li><a href="games.html">Games</a></li>
-                                        <li><a href="detail.html">Games Details</a></li>
+                                        <li><a href="games.html">游戏列表</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="#">分类浏览</a>
                                     <ul class="sub-menu">
                                         <li><a href="list.html">List</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="checkout.html">购物车</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -67,16 +68,8 @@
                     <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
                         <div class="header-right-wrap">
                             <ul>
-                                <li><a href="login.html">LOGIN</a></li>
-                                <li><a href="register.html">REGISTER</a></li>
-                                <li class="header-search"><a class="header-search-toggle" href="#"><i class="icofont-search-2"></i></a>
-                                    <div class="header-search-form">
-                                        <form action="#">
-                                            <input type="text" placeholder="Type and hit enter">
-                                            <button><i class="icofont-search"></i></button>
-                                        </form>
-                                    </div>
-                                </li>
+                                <li><a href="login.html">登录</a></li>
+                                <li><a href="register.html">注册</a></li>                               
                             </ul>
                         </div>
                     </div>
@@ -98,48 +91,42 @@
     <!--Header section end-->
     
     <!--slider section start-->
-    <div class="hero-section section position-relative">
-        <div class="hero-slider">
+    <div class="hero-section section position-relative" id="topimg">
+        <div class="hero-slider" >
             <!--Hero Item start-->
-            <div class="hero-item hero-item-2" style="background-image: url(assets/images/hero/hero-2.jpg)">
+            <div v-for="t in top">
+            <div  class="hero-item hero-item-2" :style= " 'background-image:url( '+ t.image1 + ')'">
                 <div class="container container-1520">
                     <div class="row">
                         <div class="col-12">
-
                             <!--Hero Content start-->
                             <div class="hero-content">
-                                <h1>THE WITCHER 3</h1>
+                                <h1>{{t.gname}}</h1>
                                 <h2>BETTLE BEGAN’S HERE</h2>
-                                <a class="df-btn" href="#">Buy now</a>
+                                <a class="df-btn" href="#">现在购买</a>
                             </div>
                             <!--Hero Content end-->
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Hero Item end-->
-            <!--Hero Item start-->
-            <div class="hero-item hero-item-2" style="background-image: url(assets/images/hero/hero-3.jpg)">
-                <div class="container container-1520">
-                    <div class="row">
-                        <div class="col-12">
-
-                            <!--Hero Content start-->
-                            <div class="hero-content">
-                                <h1>THE WITCHER 3</h1>
-                                <h2>BETTLE BEGAN’S HERE</h2>
-                                <a class="df-btn" href="#">Buy now</a>
-                            </div>
-                            <!--Hero Content end-->
-
-                        </div>
-                    </div>
-                </div>
             </div>
             <!--Hero Item end-->
-        </div>
+        </div>             
     </div>
+    <script type="text/javascript">
+        new Vue({
+        	el:"#topimg",
+        	data:{
+        		top:[]
+        	},
+        	created(){
+        		axios.get("game.s?op=queryTopGame").then(res=>{
+        			this.top = res.data;        		
+        		})
+        	}
+        })              
+        </script>   
     <!--slider section end-->
     
     <!--Featured section start-->

@@ -20,6 +20,14 @@ public class game implements java.io.Serializable{
 	private String image4;
 	private Integer cid;
 	private Double price;
+	private Integer isHot;
+	
+	public Integer getIsHot() {
+		return isHot;
+	}
+	public void setIsHot(Integer isHot) {
+		this.isHot = isHot;
+	}
 	public Integer getGid() {
 		return gid;
 	}
@@ -84,7 +92,8 @@ public class game implements java.io.Serializable{
 	public String toString() {
 		return "game [gid=" + gid + ", gname=" + gname + ", desc=" + desc + ", publishDate=" + publishDate + ", image1="
 				+ image1 + ", image2=" + image2 + ", image3=" + image3 + ", image4=" + image4 + ", cid=" + cid
-				+ ", price=" + price + "]";
+				+ ", price=" + price + ", isHot=" + isHot + "]";
 	}
+	
 	
 }
