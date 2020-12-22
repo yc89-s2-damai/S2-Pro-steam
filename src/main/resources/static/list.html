@@ -23,7 +23,8 @@
 </head>
 
 <body>
-    
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>  
 <div id="main-wrapper">
    
     <!--Header section start-->
@@ -109,110 +110,34 @@
     <!--Blog Area Start-->
     <div class="blog-list-area section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-xs-50">
         <div class="container">
-            <div class="row row-25">
+            <div class="row row-25" >
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12" id="cate" >
                             <!--Single Blog Post Start-->
-                            <div class="single-blog-post blog-list mb-30">
+                            <div class="single-blog-post blog-list mb-30" v-for="g in game">
                                 <div class="blog-img">
-                                    <a href="single-blog.html"><img src="assets/images/blog/blog-list1.jpg" alt=""></a>
+                                    <a href="single-blog.html"><img :src="g.image1" alt=""></a>
                                 </div>
                                 <div class="blog-content">
-                                    <h3><a href="single-blog.html">latest version of angry birds released in 2019</a></h3>
-                                    <p>Angry birds is the most popular games that anybody likes of hiden secret of the  Elder Scroll is the most popular</p>
+                                    <h3><a href="single-blog.html">{{g.gname}}</a></h3>
+                                    <p>{{g.desc}}</p>
                                     <div class="blog-bottom">
                                         <ul class="meta meta-border-bottom">
                                             <li><a href="#">Smith</a></li> 
-                                            <li>15 Devember, 2018 </li>
+                                            <li>{{g.publishDate}} </li>
                                             <li><a href="#">25 Comments</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <!--Single Blog Post End-->
-                        </div>
-                        <div class="col-12">
-                            <!--Single Blog Post Start-->
-                            <div class="single-blog-post blog-list mb-30">
-                                <div class="blog-img">
-                                    <a href="single-blog.html"><img src="assets/images/blog/blog-list2.jpg" alt=""></a>
-                                </div>
-                                <div class="blog-content">
-                                    <h3><a href="single-blog.html">need for speed: the speed that you can belive</a></h3>
-                                    <p>Angry birds is the most popular games that anybody likes of hiden secret of the  Elder Scroll is the most popular</p>
-                                    <div class="blog-bottom">
-                                        <ul class="meta meta-border-bottom">
-                                            <li><a href="#">Andrew</a></li> 
-                                            <li>13 Devember, 2018 </li>
-                                            <li><a href="#">289 Comments</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Single Blog Post End-->
-                        </div>
-                        <div class="col-12">
-                            <!--Single Blog Post Start-->
-                            <div class="single-blog-post blog-list mb-30">
-                                <div class="blog-img">
-                                    <a href="single-blog.html"><img src="assets/images/blog/blog-list3.jpg" alt=""></a>
-                                </div>
-                                <div class="blog-content">
-                                    <h3><a href="single-blog.html">spyro makes the more exciting stages to unlok </a></h3>
-                                    <p>Angry birds is the most popular games that anybody likes of hiden secret of the  Elder Scroll is the most popular</p>
-                                    <div class="blog-bottom">
-                                        <ul class="meta meta-border-bottom">
-                                            <li><a href="#">Stephen</a></li> 
-                                            <li>11 Devember, 2018 </li>
-                                            <li><a href="#">189 Comments</a></li>  
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Single Blog Post End-->
-                        </div>
-                        <div class="col-12">
-                            <!--Single Blog Post Start-->
-                            <div class="single-blog-post blog-list mb-30">
-                                <div class="blog-img">
-                                    <a href="single-blog.html"><img src="assets/images/blog/blog-list4.jpg" alt=""></a>
-                                </div>
-                                <div class="blog-content">
-                                    <h3><a href="single-blog.html">the witcher 3 most adventure and action game in 2018</a></h3>
-                                    <p>Angry birds is the most popular games that anybody likes of hiden secret of the  Elder Scroll is the most popular</p>
-                                    <div class="blog-bottom">
-                                        <ul class="meta meta-border-bottom">
-                                            <li><a href="#">Kaissha</a></li> 
-                                            <li>10 Devember, 2018 </li>
-                                            <li><a href="#">99 Comments</a></li> 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Single Blog Post End-->
-                        </div>
-                        <div class="col-12">
-                            <!--Single Blog Post Start-->
-                            <div class="single-blog-post blog-list mb-30">
-                                <div class="blog-img">
-                                <a href="single-blog.html"><img src="assets/images/blog/blog-list4.jpg" alt=""></a>
-                                </div>
-                                <div class="blog-content">
-                                    <h3><a href="single-blog.html">the witcher 3 most adventure and action game in 2018</a></h3>
-                                    <p>Angry birds is the most popular games that anybody likes of hiden secret of the  Elder Scroll is the most popular</p>
-                                    <div class="blog-bottom">
-                                        <ul class="meta meta-border-bottom">
-                                            <li><a href="#">Kaissha</a></li> 
-                                            <li>10 Devember, 2018 </li>
-                                            <li><a href="#">99 Comments</a></li> 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Single Blog Post End-->
-                        </div>                       
+                                        
                     </div>
+                    
+                    
+                    
+                    
                     <div class="row">
                         <div class="col-12">
                             <div class="blog-pagination text-center">
@@ -230,8 +155,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <script type="text/javascript">
+			var vue = new Vue({
+				el : "#cate",
+				data :{
+					game:[]
+				},
+				created(){
+					axios.get("game.s?op=selectall&cid="+location.hash.substring(1)).then(res=>{
+						this.game = res.data;
+					})
+				}
+			
+				
+			});
+		
+		</script>
+                
                 <div class="col-lg-4">
-                    <div class="sidebar-area mt-sm-55 mt-xs-50">
+                    <div clazss="sidebar-area mt-sm-55 mt-xs-50">
                         <!--Single Sidebar Widget Start-->
                         <div class="single-sidebar-widget mb-45">
                             <h3>热门游戏</h3>

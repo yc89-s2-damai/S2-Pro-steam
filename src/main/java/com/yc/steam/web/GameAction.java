@@ -37,4 +37,8 @@ public class GameAction {
 		return gdao.selectIsHot();
 	}
 	
+	@RequestMapping(path = "game.s",params = "op=selectall")
+	public List<Game> selectall(int cid){
+		return  gdao.selectAll(cid);
+	}
 }

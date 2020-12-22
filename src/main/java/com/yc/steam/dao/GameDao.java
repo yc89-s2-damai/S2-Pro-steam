@@ -32,6 +32,13 @@ public class GameDao extends BaseDao{
 		return jt.query(sql, gameRowMapper);
 	}
 	
+	
+	
+	public List<Game> selectAll(int cid){
+		String sql="select * from game where cid=?";
+		return jt.query(sql, gameRowMapper,cid);
+	}
+	
 	private RowMapper<Game> gameRowMapper = new RowMapper<Game>() {
 
 		@Override
