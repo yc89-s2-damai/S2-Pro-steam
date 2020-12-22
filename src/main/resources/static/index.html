@@ -43,19 +43,19 @@
                     <!--Logo end-->
                     
                     <!--Menu start-->
-                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
+                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center" id="clist">
                         <nav class="main-menu menu-style-2">
                             <ul>
                                 <li><a href="index.html">主页</a></li>
                                 
                                 <li><a href="games.html">游戏</a>
                                     <ul class="sub-menu">
-                                        <li><a href="games.html">游戏列表</a></li>
+                                        <li ><a href="games.html">游戏列表</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">分类浏览</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="list.html">List</a></li>
+                                    <ul class="sub-menu" >
+                                        <li v-for="c in clist"><a href="list.html">{{c.ctype}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="checkout.html">购物车</a></li>
@@ -63,7 +63,21 @@
                         </nav>
                     </div>
                     <!--Menu end-->
+                    <script type="text/javascript">
+                    new Vue({
+                    	el:"#clist",
+                    	data:{
+                    		clist:[]
+                    	},
+                    	created(){
+                    		axios.get("category.s?op=queryAll").then(res=>{
+                    			this.clist=res.data;
+                    		})
+                    	}
+                    })
                     
+                    
+                    </script>
                     <!--Header Right Wrap-->
                     <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
                         <div class="header-right-wrap">
@@ -103,7 +117,8 @@
                             <div class="hero-content">
                                 <h1>{{t.gname}}</h1>
                                 <h2>BETTLE BEGAN’S HERE</h2>
-                                <a class="df-btn" href="#">现在购买</a>
+                                <a class="df-btn"   
+                                :href="'detail.html#'+t.gid">现在购买</a>
                             </div>
                             <!--Hero Content end-->
                         </div>
@@ -136,39 +151,39 @@
                 <div class="col-12">
                     <!--Featured Title Start-->
                     <div class="featured-title">
-                        <h2>FEATURED GAMES</h2>
-                        <a href="games.html">VIEW ALL GAMES</a>
+                        <h2>精品游戏</h2>
+                        <a href="games.html">浏览所有游戏</a>
                     </div>
                     <!--Featured Title End-->
                 </div>
             </div>
-            <div class="row no-gutters">
+            <div class="row no-gutters" id="featur">
                 <div class="col-12">
                     <div class="featured-slide">
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-1.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-2.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-3.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-4.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-5.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-6.jpg" alt=""></a>
-                        </div>
-                        <div class="single-featured img-full">
-                            <a href="#"><img src="assets/images/feature/feature-slide-4.jpg" alt=""></a>
-                        </div>
+                        <div class="single-featured img-full" v-for="f in featur">
+                            <a 
+                            :href="'detail.html#'+f.gid">
+                            <img 
+                            	:src="f.image1" alt=""></a>
+                        </div>                        
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+            new Vue({
+            	el:"#featur",
+            	data:{
+            		featur:[]
+            	},
+            	created(){
+            		axios.get("game.s?op=queryFeatur").then(res=>{
+            			this.featur=res.data;           		
+            		})
+            	}
+            })
+            
+            
+            </script>
         </div>
     </div>
     <!--Featured section end-->
@@ -180,277 +195,108 @@
                 <div class="col-12">
                     <!--Section Title Start-->
                     <div class="section-title">
-                        <h2><span class="color-blue">new</span> games</h2>
+                        <h2><span class="color-blue">新品</span> 游戏</h2>
                     </div>
                     <!--Section Title End-->
                 </div>
             </div>
-            <div class="row game-slide">
-                <div class="col-4">
+            <div class="row game-slide" id="new">
+                <div class="col-4" v-for="n in ngame">
                     <!--Single Game Start-->
                     <div class="single-game mb-50">
                         <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game1.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
+                            <a :href="'detail.html#'+n.gid"><img :src="n.image1" alt=""></a>
                         </div>
                     </div>
                     <!--Single Game End-->
                     <!--Single Game Start-->
                     <div class="single-game mb-50">
                         <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game4.jpg" alt=""></a>
+                            <a :href="'detail.html#'+n.gid"><img :src="n.image2" alt=""></a>
                         </div>
                         <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
+                            <h4><a :href="'detail.html#'+n.gid">{{n.gname}}</a></h4>
                             <span>pc/xbox/ps4</span>
                         </div>
                     </div>
                     <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game2.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game5.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game3.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game6.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game2.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game5.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game1.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game3.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
+                </div>                 
+            </div>
+            <script type="text/javascript">
+            new Vue({
+            	el:"#new",
+            	data:{
+            		ngame:[]
+            	},
+            	created(){
+            		axios.get("game.s?op=queryNew").then(res=>{
+            			this.ngame=res.data;
+            		})
+            	}
+            })
+            
+            
+            </script>
             </div>
         </div>
-    </div>
+    
     <!--New Game Area End-->
 
     
     
         <!--Hot Game Area Start-->
-    <div class="new-game-area section pb-50 pb-lg-30 pb-md-20 pb-sm-10 pb-xs-0">
+   <div class="new-game-area section pb-50 pb-lg-30 pb-md-20 pb-sm-10 pb-xs-0">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <!--Section Title Start-->
                     <div class="section-title">
-                        <h2><span class="color-blue">hot</span> games</h2>
+                        <h2><span class="color-blue">热门</span> 游戏</h2>
                     </div>
                     <!--Section Title End-->
                 </div>
             </div>
-            <div class="row game-slide">
-                <div class="col-4">
+            <div class="row game-slide" id="hot">
+                <div class="col-4" v-for="h in hot">
                     <!--Single Game Start-->
                     <div class="single-game mb-50">
                         <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game1.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
+                            <a :href="'detail.html#'+h.gid"><img :src="h.image1" alt=""></a>
                         </div>
                     </div>
                     <!--Single Game End-->
                     <!--Single Game Start-->
                     <div class="single-game mb-50">
                         <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game4.jpg" alt=""></a>
+                            <a :href="'detail.html#'+h.gid"><img :src="h.image2" alt=""></a>
                         </div>
                         <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
+                            <h4><a :href="'detail.html#'+h.gid">{{h.gname}}</a></h4>
                             <span>pc/xbox/ps4</span>
                         </div>
                     </div>
                     <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game2.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game5.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game3.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game6.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game2.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game5.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-4">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game1.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game3.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
+                </div>                 
+            </div>
+            <script type="text/javascript">
+            new Vue({
+            	el:"#hot",
+            	data:{
+            		hot:[]
+            	},
+            	created(){
+            		axios.get("game.s?op=queryhot").then(res=>{
+            			this.hot=res.data;
+            		})
+            	}
+            })
+            
+            
+            </script>
             </div>
         </div>
-    </div>
     <!--Hot Game Area End-->
-    
+    </div>
     
     <!--Footer section start-->
     <footer class="footer-section style-2 section bg-theme" style="background-image: url(assets/images/bg/footer-bg.jpg)">

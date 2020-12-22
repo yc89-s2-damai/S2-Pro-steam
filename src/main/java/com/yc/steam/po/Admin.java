@@ -1,6 +1,6 @@
 package com.yc.steam.po;
 
-public class admin implements java.io.Serializable{
+public class Admin implements java.io.Serializable{
 
 	/**
 	 * 

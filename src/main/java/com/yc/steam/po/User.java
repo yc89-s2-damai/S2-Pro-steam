@@ -2,7 +2,7 @@ package com.yc.steam.po;
 
 import java.util.Date;
 
-public class user implements java.io.Serializable{
+public class User implements java.io.Serializable{
 
 	/**
 	 * 

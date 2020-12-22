@@ -1,6 +1,6 @@
 package com.yc.steam.po;
 
-public class cart implements java.io.Serializable{
+public class Cart implements java.io.Serializable{
 
 	/**
 	 * 

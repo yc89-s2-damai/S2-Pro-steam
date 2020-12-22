@@ -1,6 +1,6 @@
 package com.yc.steam.po;
 
-public class category implements java.io.Serializable{
+public class Category implements java.io.Serializable{
 
 	/**
 	 * 
