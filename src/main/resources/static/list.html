@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -134,7 +135,7 @@
                             <!--Single Blog Post End-->
                                         
                     </div>
-                                
+                    </div>            
                 <script type="text/javascript">
 			var vue = new Vue({
 				el : "#cate",
@@ -176,21 +177,34 @@
                 <div class="col-lg-4">
                     <div clazss="sidebar-area mt-sm-55 mt-xs-50">
                         <!--Single Sidebar Widget Start-->
-                        <div class="single-sidebar-widget mb-45">
+                        <div class="single-sidebar-widget mb-45" id="hot">
                             <h3>热门游戏</h3>
-                            <div class="single-featured-game mb-20">
+                            <div class="single-featured-game mb-20" v-for="h in hot">
                                 <div class="game-img">
-                                    <a href="#"><img src="assets/images/banner/sidebar-banner1.jpg" alt=""></a>
-                                    <a class="game-title" href="#">the killer</a>
+                                   <a :href="'detail.html#'+h.gid"><img :src="h.image2" alt=""></a>
+                                    <a class="game-title" href="'detail.html#'+h.gid">{{h.gname}}</a>
                                 </div>
                             </div>
-                            <div class="single-featured-game mb-20">
-                                <div class="game-img">
-                                    <a href="#"><img src="assets/images/banner/sidebar-banner2.jpg" alt=""></a>
-                                    <a class="game-title" href="#">muscle cars</a>
-                                </div>
-                            </div>
+                            
                         </div>
+                        
+                         <script type="text/javascript">
+            new Vue({
+            	el:"#hot",
+            	data:{
+            		hot:[]
+            	},
+            	created(){
+            		axios.get("game.s?op=queryCatehot").then(res=>{
+            			this.hot=res.data;
+            		})
+            	}
+            })
+            
+            
+            </script>
+                        
+                        
                         <!--Single Sidebar Widget End-->
                         <!--Single Sidebar Widget Start-->
                         <div class="single-sidebar-widget mb-45">
@@ -206,29 +220,35 @@
                         </div>
                         <!--Single Sidebar Widget End-->
                         <!--Single Sidebar Widget Start-->
-                        <div class="single-sidebar-widget mb-45">
+                        <div class="single-sidebar-widget mb-45" id="new">
                             <h3>最新游戏</h3>
-                            <div class="popular-game mb-20">
+                            <div class="popular-game mb-20" v-for="n in ngame">>
                                 <div class="game-img">
-                                    <a href="#"><img src="assets/images/banner/sidebar-banner3.jpg" alt=""></a>
+                                     <a :href="'detail.html#'+n.gid"><img :src="n.image2" alt=""></a>
                                 </div>
                                 <div class="game-content">
-                                    <h3><a href="#">Splinter cell</a></h3>
+                                     <h3><a :href="'detail.html#'+n.gid">{{n.gname}}</a></h3>
                                     <span>pc/xbox/ps4</span>
                                 </div>
                             </div>
-                            <div class="popular-game mb-20">
-                                <div class="game-img">
-                                    <a href="#"><img src="assets/images/banner/sidebar-banner4.jpg" alt=""></a>
-                                </div>
-                                <div class="game-content">
-                                    <h3><a href="#">battle field 4</a></h3>
-                                    <span>pc/xbox/ps4</span>
-                                </div>
-                            </div>
+                            
                         </div>
                         <!--Single Sidebar Widget End-->
-                        
+                        <script type="text/javascript">
+            new Vue({
+            	el:"#new",
+            	data:{
+            		ngame:[]
+            	},
+            	created(){
+            		axios.get("game.s?op=queryCateNew").then(res=>{
+            			this.ngame=res.data;
+            		})
+            	}
+            })
+            
+            
+            </script>
                        
                        
                     </div>

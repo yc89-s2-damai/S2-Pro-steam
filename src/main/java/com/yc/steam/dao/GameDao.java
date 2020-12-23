@@ -32,6 +32,16 @@ public class GameDao extends BaseDao{
 		String sql="select * from game where is_hot=1";
 		return jt.query(sql, gameRowMapper);
 	}
+	//热门游戏list
+		public List<Game> selectcateIsHot(){
+			String sql="select * from game where is_hot=1 limit 2,2";
+			return jt.query(sql, gameRowMapper);
+		}
+	//最新游戏
+		public List<Game> selectcateNew(){
+			String sql="select * from game order by publish_date desc limit 2,2";
+			return jt.query(sql, gameRowMapper);
+		}
 	//全部游戏
 	public List<Game>selectAll(){
 		String sql="select * from game";

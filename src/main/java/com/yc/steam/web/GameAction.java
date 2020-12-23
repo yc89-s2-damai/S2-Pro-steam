@@ -53,4 +53,13 @@ public class GameAction {
 	public List<Game> selectall(int cid){
 		return  gdao.selectAll(cid);
 	}
+	
+	@RequestMapping(path = "game.s",params = "op=queryCateNew")
+	public List<Game> queryCateNew(){
+		return gdao.selectcateNew();
+	}
+	@RequestMapping(path = "game.s",params = "op=queryCatehot")
+	public List<Game> queryCateHot(){
+		return gdao.selectcateIsHot();
+	}
 }
