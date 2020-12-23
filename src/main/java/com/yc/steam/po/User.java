@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class User implements java.io.Serializable{
 
+	public String getUpwd() {
+		return upwd;
+	}
+	public void setUpwd(String upwd) {
+		this.upwd = upwd;
+	}
 	/**
 	 * 
 	 */
@@ -13,6 +19,7 @@ public class User implements java.io.Serializable{
 	private String uname;
 	private String email;
 	private Integer phone;
+	private  String  upwd;
 	private Date createDate;
 	public Integer getUid() {
 		return uid;
