@@ -17,19 +17,47 @@ public class GameDao extends BaseDao{
 		String sql="select * from game order by publish_date desc limit 0,2";
 		return jt.query(sql, gameRowMapper);
 	}
-	//首页精品游戏
+	//首页精品游戏3A
 	public List<Game> selectFeatur(){
 		String sql="select * from game where cid=4";
 		return jt.query(sql, gameRowMapper);
 	}
-	
+	//最新游戏
 	public List<Game> selectNew(){
 		String sql="select * from game order by publish_date desc limit 0,5";
 		return jt.query(sql, gameRowMapper);
 	}
+	//热门游戏
 	public List<Game> selectIsHot(){
 		String sql="select * from game where is_hot=1";
 		return jt.query(sql, gameRowMapper);
+	}
+	//热门游戏list
+		public List<Game> selectcateIsHot(){
+			String sql="select * from game where is_hot=1 limit 2,2";
+			return jt.query(sql, gameRowMapper);
+		}
+	//最新游戏
+		public List<Game> selectcateNew(){
+			String sql="select * from game order by publish_date desc limit 2,2";
+			return jt.query(sql, gameRowMapper);
+		}
+	//全部游戏
+	public List<Game>selectAll(){
+		String sql="select * from game";
+		return jt.query(sql, gameRowMapper);
+	}
+	//byname
+	public List<Game> selectByName(String gname){
+		String sql="select * from game where gname=?";
+		return jt.query(sql, gameRowMapper,gname);
+	}
+	
+	
+	
+	public List<Game> selectAll(int cid){
+		String sql="select * from game where cid=?";
+		return jt.query(sql, gameRowMapper,cid);
 	}
 	
 	private RowMapper<Game> gameRowMapper = new RowMapper<Game>() {

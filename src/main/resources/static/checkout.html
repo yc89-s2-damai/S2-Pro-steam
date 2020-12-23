@@ -20,13 +20,15 @@
     <link rel="stylesheet" href="assets/css/style.css">   
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 
 <body>
     
 <div id="main-wrapper">
    
-    <!--Header section start-->
+       <!--Header section start-->
     <header class="header header-static bg-black header-sticky">
         <div class="default-header menu-right">
             <div class="container container-1520">
@@ -41,19 +43,19 @@
                     <!--Logo end-->
                     
                     <!--Menu start-->
-                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
+                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center" id="clist">
                         <nav class="main-menu menu-style-2">
                             <ul>
                                 <li><a href="index.html">主页</a></li>
                                 
                                 <li><a href="games.html">游戏</a>
                                     <ul class="sub-menu">
-                                        <li><a href="games.html">游戏列表</a></li>
+                                        <li ><a href="games.html">游戏列表</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">分类浏览</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="list.html">List</a></li>
+                                    <ul class="sub-menu" >
+                                        <li v-for="c in clist"><a :href="'list.html#'+c.cid">{{c.ctype}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="checkout.html">购物车</a></li>
@@ -61,7 +63,21 @@
                         </nav>
                     </div>
                     <!--Menu end-->
+                    <script type="text/javascript">
+                    new Vue({
+                    	el:"#clist",
+                    	data:{
+                    		clist:[]
+                    	},
+                    	created(){
+                    		axios.get("category.s?op=queryAll").then(res=>{
+                    			this.clist=res.data;
+                    		})
+                    	}
+                    })
                     
+                    
+                    </script>
                     <!--Header Right Wrap-->
                     <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
                         <div class="header-right-wrap">
@@ -88,24 +104,45 @@
     </header>
     <!--Header section end-->
     
-    <!--Page Banner Area Start-->
-    <div class="page-banner-area" style="background-image: url(assets/images/bg/page-bg.jpg)">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-content text-center">
-                        <h1>KINGS OF THE <br> WARRIORS</h1>
-                        <a class="df-btn" href="#">Buy now</a>
-                        <ul class="page-breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Checkout</li>
-                        </ul>
+    <!--slider section start-->
+    <div class="hero-section section position-relative" id="topimg">
+        <div class="hero-slider" >
+            <!--Hero Item start-->
+            <div v-for="t in top">
+            <div  class="hero-item hero-item-2" :style= " 'background-image:url( '+ t.image1 + ')'">
+                <div class="container container-1520">
+                    <div class="row">
+                        <div class="col-12">
+                            <!--Hero Content start-->
+                            <div class="hero-content">
+                                <h1>{{t.gname}}</h1>
+                                <h2>BETTLE BEGAN’S HERE</h2>
+                                <a class="df-btn"   
+                                :href="'detail.html#'+t.gid">现在购买</a>
+                            </div>
+                            <!--Hero Content end-->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+            <!--Hero Item end-->
+        </div>             
     </div>
-    <!--Page Banner Area End-->
+    <script type="text/javascript">
+        new Vue({
+        	el:"#topimg",
+        	data:{
+        		top:[]
+        	},
+        	created(){
+        		axios.get("game.s?op=queryTopGame").then(res=>{
+        			this.top = res.data;        		
+        		})
+        	}
+        })              
+        </script>   
+    <!--slider section end-->
     
     <!--Checkout Area Start-->
     <div class="checkout-area section pt-95 pt-lg-75 pt-md-65 pt-sm-55 pt-xs-45">
@@ -120,225 +157,67 @@
 
                                <!-- Billing Address -->
                                <div id="billing-form" class="mb-10">
-                                   <h4 class="checkout-title">Billing Address</h4>
-
+                                   <h4 class="checkout-title">账单地址</h4>
                                    <div class="row">
-
                                        <div class="col-md-6 col-12 mb-20">
-                                           <label>First Name*</label>
-                                           <input type="text" placeholder="First Name">
+                                           <label>姓名*</label>
+                                           <input type="text" placeholder="Name">
+                                       </div>
+                                       <div class="col-md-6 col-12 mb-20">
+                                           <label>邮箱*</label>
+                                           <input type="email" placeholder="Email">
                                        </div>
 
                                        <div class="col-md-6 col-12 mb-20">
-                                           <label>Last Name*</label>
-                                           <input type="text" placeholder="Last Name">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Email Address*</label>
-                                           <input type="email" placeholder="Email Address">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Phone no*</label>
+                                           <label>电话*</label>
                                            <input type="text" placeholder="Phone number">
                                        </div>
-
-                                       <div class="col-12 mb-20">
-                                           <label>Company Name</label>
-                                           <input type="text" placeholder="Company Name">
+                                      <div class="col-12 mb-20">
+                                           <label>地址*</label>
+                                           <input type="text" placeholder="Address">                                           
                                        </div>
-
-                                       <div class="col-12 mb-20">
-                                           <label>Address*</label>
-                                           <input type="text" placeholder="Address line 1">
-                                           <input type="text" placeholder="Address line 2">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Country*</label>
-                                           <select class="nice-select">
-                                                <option>Bangladesh</option>
-                                                <option>China</option>
-                                                <option>country</option>
-                                                <option>India</option>
-                                                <option>Japan</option>
-                                           </select>
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Town/City*</label>
-                                           <input type="text" placeholder="Town/City">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>State*</label>
-                                           <input type="text" placeholder="State">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Zip Code*</label>
-                                           <input type="text" placeholder="Zip Code">
-                                       </div>
-
-                                       <div class="col-12 mb-20">
-                                           <div class="check-box">
-                                               <input type="checkbox" id="create_account">
-                                               <label for="create_account">Create an Acount?</label>
-                                           </div>
-                                           <div class="check-box">
-                                               <input type="checkbox" id="shiping_address" data-shipping>
-                                               <label for="shiping_address">Ship to Different Address</label>
-                                           </div>
-                                       </div>
-
                                    </div>
-
                                </div>
-
-                               <!-- Shipping Address -->
-                               <div id="shipping-form">
-                                   <h4 class="checkout-title">Shipping Address</h4>
-
-                                   <div class="row">
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>First Name*</label>
-                                           <input type="text" placeholder="First Name">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Last Name*</label>
-                                           <input type="text" placeholder="Last Name">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Email Address*</label>
-                                           <input type="email" placeholder="Email Address">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Phone no*</label>
-                                           <input type="text" placeholder="Phone number">
-                                       </div>
-
-                                       <div class="col-12 mb-20">
-                                           <label>Company Name</label>
-                                           <input type="text" placeholder="Company Name">
-                                       </div>
-
-                                       <div class="col-12 mb-20">
-                                           <label>Address*</label>
-                                           <input type="text" placeholder="Address line 1">
-                                           <input type="text" placeholder="Address line 2">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Country*</label>
-                                           <select class="nice-select">
-                                                <option>Bangladesh</option>
-                                                <option>China</option>
-                                                <option>country</option>
-                                                <option>India</option>
-                                                <option>Japan</option>
-                                           </select>
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Town/City*</label>
-                                           <input type="text" placeholder="Town/City">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>State*</label>
-                                           <input type="text" placeholder="State">
-                                       </div>
-
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>Zip Code*</label>
-                                           <input type="text" placeholder="Zip Code">
-                                       </div>
-
-                                   </div>
-
-                               </div>
-
                            </div>
 
                            <div class="col-lg-5">
                                <div class="row">
-
                                    <!-- Cart Total -->
                                    <div class="col-12 mb-60">
-
-                                       <h4 class="checkout-title">Cart Total</h4>
-
+                                       <h4 class="checkout-title">购物车</h4>
                                        <div class="checkout-cart-total">
-
-                                           <h4>Product <span>Total</span></h4>
-
+                                           <h4>产品 <span>金额</span></h4>
                                            <ul>
                                                <li>Teritory Quentily X 01 <span>$35.00</span></li>
                                                <li>Adurite Silocone X 02 <span>$59.00</span></li>
                                                <li>Baizidale Momone X 01 <span>$78.00</span></li>
                                                <li>Makorone Cicile X 01 <span>$65.00</span></li>
                                            </ul>
-
-                                           <p>Sub Total <span>$296.00</span></p>
-                                           <p>Shipping Fee <span>$00.00</span></p>
-
-                                           <h4>Grand Total <span>$296.00</span></h4>
-
+                                           <p>总计金额 <span>$296.00</span></p>
                                        </div>
-
                                    </div>
 
                                    <!-- Payment Method -->
                                    <div class="col-12">
-
-                                       <h4 class="checkout-title">Payment Method</h4>
-
+                                       <h4 class="checkout-title">支付方式</h4>
                                        <div class="checkout-payment-method">
-
                                            <div class="single-method">
                                                <input type="radio" id="payment_check" name="payment-method" value="check">
-                                               <label for="payment_check">Check Payment</label>
-                                               <p data-method="check">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                               <label for="payment_check">微信支付</label>
                                            </div>
-
                                            <div class="single-method">
                                                <input type="radio" id="payment_bank" name="payment-method" value="bank">
-                                               <label for="payment_bank">Direct Bank Transfer</label>
-                                               <p data-method="bank">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                               <label for="payment_bank">支付宝支付</label>
                                            </div>
-
                                            <div class="single-method">
                                                <input type="radio" id="payment_cash" name="payment-method" value="cash">
-                                               <label for="payment_cash">Cash on Delivery</label>
-                                               <p data-method="cash">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
-                                           </div>
-
-                                           <div class="single-method">
-                                               <input type="radio" id="payment_paypal" name="payment-method" value="paypal">
-                                               <label for="payment_paypal">Paypal</label>
-                                               <p data-method="paypal">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
-                                           </div>
-
-                                           <div class="single-method">
-                                               <input type="radio" id="payment_payoneer" name="payment-method" value="payoneer">
-                                               <label for="payment_payoneer">Payoneer</label>
-                                               <p data-method="payoneer">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
-                                           </div>
-
-                                           <div class="single-method">
-                                               <input type="checkbox" id="accept_terms">
-                                               <label for="accept_terms">I’ve read and accept the terms & conditions</label>
-                                           </div>
-
+                                               <label for="payment_cash">银联支付</label>
+                                           </div>                 
                                        </div>
 
-                                       <button class="place-order df-btn">Place order</button>
-
+                                       <button class="place-order df-btn">提交订单</button>
+                                       
+									   <button class="place-order df-btn">取消订单</button>
                                    </div>
 
                                </div>
