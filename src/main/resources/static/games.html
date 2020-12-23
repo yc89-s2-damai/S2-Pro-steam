@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="assets/css/style.css">   
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 
 <body>
@@ -27,6 +29,7 @@
 <div id="main-wrapper">
    
     <!--Header section start-->
+        <!--Header section start-->
     <header class="header header-static bg-black header-sticky">
         <div class="default-header menu-right">
             <div class="container container-1520">
@@ -41,19 +44,19 @@
                     <!--Logo end-->
                     
                     <!--Menu start-->
-                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
+                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center" id="clist">
                         <nav class="main-menu menu-style-2">
                             <ul>
                                 <li><a href="index.html">主页</a></li>
                                 
                                 <li><a href="games.html">游戏</a>
                                     <ul class="sub-menu">
-                                        <li><a href="games.html">游戏列表</a></li>
+                                        <li ><a href="games.html">游戏列表</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">分类浏览</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="list.html">List</a></li>
+                                    <ul class="sub-menu" >
+                                        <li v-for="c in clist"><a href="list.html">{{c.ctype}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="checkout.html">购物车</a></li>
@@ -61,7 +64,21 @@
                         </nav>
                     </div>
                     <!--Menu end-->
+                    <script type="text/javascript">
+                    new Vue({
+                    	el:"#clist",
+                    	data:{
+                    		clist:[]
+                    	},
+                    	created(){
+                    		axios.get("category.s?op=queryAll").then(res=>{
+                    			this.clist=res.data;
+                    		})
+                    	}
+                    })
                     
+                    
+                    </script>
                     <!--Header Right Wrap-->
                     <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
                         <div class="header-right-wrap">
@@ -88,242 +105,108 @@
     </header>
     <!--Header section end-->
     
-    <!--Page Banner Area Start-->
-    <div class="page-banner-area" style="background-image: url(assets/images/bg/page-bg.jpg)">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-content text-center">
-                        <h1>KINGS OF THE <br> WARRIORS</h1>
-                        <a class="df-btn" href="#">Buy now</a>
-                        <ul class="page-breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Games</li>
-                        </ul>
+    <!--slider section start-->
+    <div class="hero-section section position-relative" id="topimg">
+        <div class="hero-slider" >
+            <!--Hero Item start-->
+            <div v-for="t in top">
+            <div  class="hero-item hero-item-2" :style= " 'background-image:url( '+ t.image1 + ')'">
+                <div class="container container-1520">
+                    <div class="row">
+                        <div class="col-12">
+                            <!--Hero Content start-->
+                            <div class="hero-content">
+                                <h1>{{t.gname}}</h1>
+                                <h2>BETTLE BEGAN’S HERE</h2>
+                                <a class="df-btn"   
+                                :href="'detail.html#'+t.gid">现在购买</a>
+                            </div>
+                            <!--Hero Content end-->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+            <!--Hero Item end-->
+        </div>             
     </div>
+    <script type="text/javascript">
+        new Vue({
+        	el:"#topimg",
+        	data:{
+        		top:[]
+        	},
+        	created(){
+        		axios.get("game.s?op=queryTopGame").then(res=>{
+        			this.top = res.data;        		
+        		})
+        	}
+        })              
+        </script>
     <!--Page Banner Area End-->
     
     <!--Games Area Start-->
     <div class="games-area section pt-85 pt-lg-65 pt-md-55 pt-sm-55 pt-xs-45">
-        <div class="container">
+        <div class="container" id="game">
             <div class="row">
                 <div class="col-12">
                     <!--Game Toolbar Start-->
                     <div class="game-topbar-wrapper d-md-flex justify-content-md-between align-items-center">
                         <div class="game-search-box">
-                            <h3>search games</h3>
-                            <input type="text" name="game_search" placeholder="Enter games name">
-                            <button><i class="icofont-search-2"></i></button>
-                        </div>
-                         <!--Toolbar Short Area Start-->
-                         <div class="toolbar-short-area d-md-flex align-items-center">
-                             <div class="toolbar-shorter">
-                                <h3>platform</h3>
-                                 <select class="wide">
-                                     <option data-display="Select">All Platform</option>
-                                     <option value="Relevance">Relevance</option>
-                                     <option value="Name, A to Z">Name, A to Z</option>
-                                     <option value="Name, Z to A">Name, Z to A</option>
-                                     <option value="Price, low to high">Price, low to high</option>
-                                     <option value="Price, high to low">Price, high to low</option>
-                                 </select>
-                             </div>
-                             <div class="toolbar-shorter">
-                                <h3>platform</h3>
-                                 <select class="wide">
-                                     <option data-display="Select">All Platform</option>
-                                     <option value="Relevance">Relevance</option>
-                                     <option value="Name, A to Z">Name, A to Z</option>
-                                     <option value="Name, Z to A">Name, Z to A</option>
-                                     <option value="Price, low to high">Price, low to high</option>
-                                     <option value="Price, high to low">Price, high to low</option>
-                                 </select>
-                             </div>
-                         </div>
-                         <!--Toolbar Short Area End-->
+                            <h3>查询游戏</h3>
+                            <input type="text" name="gname" placeholder="Enter games name" v-model="name">
+                            <button  @click="selectByName()"><i class="icofont-search-2"></i></button>
+                        </div>                       
                     </div>
                     <!--Game Toolbar End-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
+            <div class="row" >
+            
+            
+                <div class="col-lg-4 col-md-6" v-for="g in game">
                     <!--Single Game Start-->
                     <div class="single-game mb-50">
                         <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game1.jpg" alt=""></a>
+                            <a :href="'detail.html#'+g.gid"><img :src="g.image1" alt=""></a>
                         </div>
                         <div class="game-content">
-                            <h4><a href="games-details.html">the elder scroll</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game2.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">Batman return</a></h4>
-                            <span>pc/xbox</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game3.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">Call of duty</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game4.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">Assassins Cred</a></h4>
-                            <span>pc/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game5.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">spiderman return</a></h4>
-                            <span>xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game6.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">Age of ampires</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game7.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">angry birds</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game8.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">need for speed</a></h4>
-                            <span>pc/xbox</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game9.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the witcher 3</a></h4>
-                            <span>pc/xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game10.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">battle field 4</a></h4>
-                            <span>pc/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game11.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">the magician</a></h4>
-                            <span>xbox/ps4</span>
-                        </div>
-                    </div>
-                    <!--Single Game End-->
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <!--Single Game Start-->
-                    <div class="single-game mb-50">
-                        <div class="game-img">
-                            <a href="games-details.html"><img src="assets/images/game/game12.jpg" alt=""></a>
-                        </div>
-                        <div class="game-content">
-                            <h4><a href="games-details.html">secret group</a></h4>
+                            <h4><a :href="'detail.html#'+g.gid">{{g.gname}}</a></h4>
                             <span>pc/xbox/ps4</span>
                         </div>
                     </div>
                     <!--Single Game End-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="blog-pagination text-center">
-                        <ul class="page-pagination">
-                            <li><a href="#"><i class="icofont-long-arrow-left"></i></a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li><a href="#"><i class="icofont-long-arrow-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
+            
         </div>
+        <script type="text/javascript">
+            new Vue({
+            	el:"#game",
+            	data:{
+            		game:[],
+            		name:""		
+            	},
+            	created(){
+            		/* axios.get("game.s?op=queryGames").then(res=>{
+            			this.game=res.data;
+            		}) */
+            		this.selectByName();
+            	},
+            	methods:{
+            		selectByName(){
+            			var params = new URLSearchParams();
+            			params.append("op","queryGames");
+            			params.append("gname",this.name);
+            			axios.post("game.s",params).then(res=>{
+            					this.game=res.data;
+            			})
+            		}
+            	}
+            })
+            
+            </script>
     </div>
     <!--Games Area End-->
     
@@ -336,9 +219,9 @@
                    <!--News Latter Area Start-->
                    <div class="news-latter-area newslatter-black">
                        <div class="news-latter-box">
-                           <h3>SUBSCRIBE OUR NEWSLETTER, GET ALL <br> LATEST NEWS, UPDATE, VIDEOS AND OFFERS </h3>
+                           <h3>获取我们新的产品, GET ALL <br> 最新消息, 维护, 新闻 </h3>
                            <form action="#">
-                               <input type="text" placeholder="Enter your email here">
+                               <input type="text" placeholder="在这里输入你的邮箱">
                            </form>
                        </div>
                    </div>
