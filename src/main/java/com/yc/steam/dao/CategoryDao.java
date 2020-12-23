@@ -18,6 +18,7 @@ public class CategoryDao extends BaseDao{
 	}
 	
 	
+	
 	private RowMapper<Category> categoryRowMapper = new RowMapper<Category>() {
 
 		@Override

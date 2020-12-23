@@ -41,9 +41,14 @@ public class GameAction {
 		return gdao.selectIsHot();
 	}
 	
+
 	@RequestMapping(path = "game.s",params = "op=queryGames")	
 	public List<Game> quertGames(String gname) throws BizException{
 		System.out.println("========="+gname);
 		return gbiz.selectGames(gname);
+	}
+	@RequestMapping(path = "game.s",params = "op=selectall")
+	public List<Game> selectall(int cid){
+		return  gdao.selectAll(cid);
 	}
 }
