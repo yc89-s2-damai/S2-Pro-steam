@@ -47,6 +47,8 @@ public class GameAction {
 		System.out.println("========="+gname);
 		return gbiz.selectGames(gname);
 	}
+	
+	
 	@RequestMapping(path = "game.s",params = "op=selectall")
 	public List<Game> selectall(int cid){
 		return  gdao.selectAll(cid);
