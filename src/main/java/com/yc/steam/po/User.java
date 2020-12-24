@@ -18,7 +18,7 @@ public class User implements java.io.Serializable{
 	private Integer uid;
 	private String uname;
 	private String email;
-	private Integer phone;
+	private String phone;
 	private  String  upwd;
 	private Date createDate;
 	public Integer getUid() {
@@ -39,10 +39,10 @@ public class User implements java.io.Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public Date getCreateDate() {

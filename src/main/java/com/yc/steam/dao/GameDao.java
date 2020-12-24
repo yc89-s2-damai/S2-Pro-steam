@@ -52,7 +52,13 @@ public class GameDao extends BaseDao{
 		String sql="select * from game where gname=?";
 		return jt.query(sql, gameRowMapper,gname);
 	}
-	
+	//byid
+	public Game selectById(int gid) {
+		String sql="select * from game where gid=?";
+		return jt.query(sql, rs->{
+			return rs.next() ? gameRowMapper.mapRow(rs, -1) : null;
+		}, gid);
+	}
 	
 	
 	public List<Game> selectAll(int cid){

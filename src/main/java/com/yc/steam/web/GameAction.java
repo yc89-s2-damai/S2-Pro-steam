@@ -62,4 +62,10 @@ public class GameAction {
 	public List<Game> queryCateHot(){
 		return gdao.selectcateIsHot();
 	}
+	@RequestMapping(path = "game.s",params = "op=queryById")
+	public Game quertById(int gid) {
+		return gdao.selectById(gid);
+	}
+	
+	
 }

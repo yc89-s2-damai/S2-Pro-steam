@@ -48,9 +48,14 @@ public class UserAction {
 		} catch (BizException e) {
 			e.printStackTrace();
 			return new Result(0, e.getMessage());
-		}
-	
-		
+		}	
 	}
+	
+	@RequestMapping("getLoginedUser")
+	public User getLoginedUser(String username,HttpSession session) {
+		User user = (User) session.getAttribute("loginedUser");
+		return user;
+	}
+	
 	
 }
