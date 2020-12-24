@@ -12,9 +12,8 @@ public class CartBiz {
 	@Resource
 	private CartDao cdao;
 	
-	@SuppressWarnings("unlikely-arg-type")
 	public void addCart(int gid,int uid) throws BizException {
-		if("".equals(cdao.selectCartBygidAndUid(gid, uid))) {
+		if((cdao.selectCartBygidAndUid(gid, uid))==null) {
 			cdao.addCart(gid, uid);
 		}else {
 			throw new BizException("该游戏已经加入到购物车了!");

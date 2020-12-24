@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Checkout || Gilbard</title>
+    <title>购物车 || Gilbard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -162,7 +162,7 @@
     <div class="checkout-area section pt-95 pt-lg-75 pt-md-65 pt-sm-55 pt-xs-45">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12" id="checkout">
                     <!-- Checkout Form Start-->
                     <form action="#" class="checkout-form">
                        <div class="row row-40">
@@ -175,20 +175,21 @@
                                    <div class="row">
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>姓名*</label>
-                                           <input type="text" placeholder="Name">
+                                           <input type="text" placeholder="Name" v-model="name">
                                        </div>
+                                       <li></li>
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>邮箱*</label>
-                                           <input type="email" placeholder="Email">
+                                           <input type="email" placeholder="Email" v-model="email">
                                        </div>
-
+										<li></li>
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>电话*</label>
-                                           <input type="text" placeholder="Phone number">
+                                           <input type="text" placeholder="Phone number" v-model="phone">
                                        </div>
                                       <div class="col-12 mb-20">
                                            <label>地址*</label>
-                                           <input type="text" placeholder="Address">                                           
+                                           <input type="text" placeholder="Address" v-model="addr">                                           
                                        </div>
                                    </div>
                                </div>
@@ -202,12 +203,9 @@
                                        <div class="checkout-cart-total">
                                            <h4>产品 <span>金额</span></h4>
                                            <ul>
-                                               <li>Teritory Quentily X 01 <span>$35.00</span></li>
-                                               <li>Adurite Silocone X 02 <span>$59.00</span></li>
-                                               <li>Baizidale Momone X 01 <span>$78.00</span></li>
-                                               <li>Makorone Cicile X 01 <span>$65.00</span></li>
+                                               <li v-for="c in cart">{{c.gname}} <span>${{c.price}}</span></li>
                                            </ul>
-                                           <p>总计金额 <span>$296.00</span></p>
+                                           <p>总计金额 <span>${{sum}}</span></p>
                                        </div>
                                    </div>
 
@@ -229,7 +227,7 @@
                                            </div>                 
                                        </div>
 
-                                       <button class="place-order df-btn">提交订单</button>
+                                       <button class="place-order df-btn" @click="addOrder()">提交订单</button>
                                        
 									   <button class="place-order df-btn">取消订单</button>
                                    </div>
@@ -241,6 +239,52 @@
                     </form> 
                     <!-- Checkout Form End-->
                 </div>
+                
+                
+                <script type="text/javascript">
+                new Vue({
+                	el:"#checkout",
+                	data:{
+                		name:"",
+                		email:"",
+                		
+                		phone:"",
+                		addr:"",
+                		cart:[]
+                	},
+                	created(){
+                		axios.get("cart.s?op=queryCart&uid="+location.hash.substring(1)).then(res=>{
+                			this.cart=res.data;
+                		})
+                	},
+                	computed:{
+        				sum(){
+        					var sum = 0;
+        					for(var i in this.cart){
+        				           sum+=this.cart[i].price;
+        				       }
+        				    return sum;
+        				}
+        			},
+        			methods:{
+        				addOrder(){
+        					
+        				}
+        			}
+                	
+                })
+                
+                
+                </script>
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </div>
         </div>
     </div>
