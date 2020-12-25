@@ -164,7 +164,7 @@
             <div class="row">
                 <div class="col-12" id="checkout">
                     <!-- Checkout Form Start-->
-                    <form action="#" class="checkout-form">
+                    <form  class="checkout-form">
                        <div class="row row-40">
 
                            <div class="col-lg-7">
@@ -178,10 +178,7 @@
                                            <input type="text" placeholder="Name" v-model="name">
                                        </div>
                                        <li></li>
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>邮箱*</label>
-                                           <input type="email" placeholder="Email" v-model="email">
-                                       </div>
+
 										<li></li>
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>电话*</label>
@@ -245,9 +242,7 @@
                 new Vue({
                 	el:"#checkout",
                 	data:{
-                		name:"",
-                		email:"",
-                		
+                		name:"",              		
                 		phone:"",
                 		addr:"",
                 		cart:[]
@@ -267,11 +262,17 @@
         				}
         			},
         			methods:{
-        				addOrder(){
-        					
+        				addOrder(){        					
+        					var params =new URLSearchParams();
+        	    			params.append("name",this.name);
+        	    			params.append("phone",this.phone);
+        	    			params.append("addr",this.addr);
+        	    			axios.post("order.s",params).then(res=>{
+        	    				alert(res.data.msg);
+        	    				alert("订单成功！");
+        	    				})        						
         				}
-        			}
-                	
+        			}              	
                 })
                 
                 

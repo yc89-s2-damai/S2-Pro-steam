@@ -35,8 +35,12 @@ public class CartDao extends BaseDao{
 				+ " left join game c on a.gid=c.gid"
 				+ " where a.uid=?", uid);
 	}
-	
-	
+	public Double selectTotalByUid(Integer uid) {
+		String sql="select sum(b.price) from "+
+				   " cart a join game b on a.gid = b.gid "+
+				   " where uid=?";		
+		return jt.queryForObject(sql, Double.class,uid);
+	}
 	
 	//取消订单	
 	public void deleteByUid(Integer uid) {	

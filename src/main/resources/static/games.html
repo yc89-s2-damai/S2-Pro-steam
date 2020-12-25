@@ -56,7 +56,7 @@
                                 </li>
                                 <li><a href="#">分类浏览</a>
                                     <ul class="sub-menu" >
-                                        <li v-for="c in clist"><a href="list.html">{{c.ctype}}</a></li>
+                                        <li v-for="c in clist"><a :href="'list.html#'+c.cid">{{c.ctype}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="checkout.html">购物车</a></li>

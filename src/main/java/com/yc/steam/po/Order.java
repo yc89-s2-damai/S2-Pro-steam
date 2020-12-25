@@ -11,7 +11,7 @@ public class Order implements java.io.Serializable{
 	
 	
 	private Integer oid;
-	private Integer total;
+	private Double total;
 	private Date orderTime;
 	private String addr;
 	private Integer phone;
@@ -24,10 +24,10 @@ public class Order implements java.io.Serializable{
 	public void setOid(Integer oid) {
 		this.oid = oid;
 	}
-	public Integer getTotal() {
+	public Double getTotal() {
 		return total;
 	}
-	public void setTotal(Integer total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 	public Date getOrderTime() {
