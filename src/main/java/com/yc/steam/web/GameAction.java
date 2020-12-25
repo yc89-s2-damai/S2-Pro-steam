@@ -54,6 +54,11 @@ public class GameAction {
 		return  gdao.selectAll(cid);
 	}
 	
+	@RequestMapping(path = "game.s",params = "op=selectBygid")
+	public List<Game> selectBygid(int gid){
+		return  gdao.selectBygid(gid);
+	}
+	
 	@RequestMapping(path = "game.s",params = "op=queryCateNew")
 	public List<Game> queryCateNew(){
 		return gdao.selectcateNew();
