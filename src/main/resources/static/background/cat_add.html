@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="./Style/skin.css" />
+<!--axios和vue的导入  -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script
+	src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+</head>
+<body>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<!-- 头部开始 -->
+		<tr>
+			<td width="17" valign="top" background="./Images/mail_left_bg.gif">
+				<img src="./Images/left_top_right.gif" width="17" height="29" />
+			</td>
+			<td valign="top" background="./Images/content_bg.gif">
+				<table width="100%" height="31" border="0" cellpadding="0"
+					cellspacing="0" background="././Images/content_bg.gif">
+					<tr>
+						<td height="31"><div class="title">添加游戏</div></td>
+					</tr>
+				</table>
+			</td>
+			<td width="16" valign="top" background="./Images/mail_right_bg.gif"><img
+				src="./Images/nav_right_bg.gif" width="16" height="29" /></td>
+		</tr>
+		<!-- 中间部分开始 -->
+		<tr>
+			<!--第一行左边框-->
+			<td valign="middle" background="./Images/mail_left_bg.gif">&nbsp;</td>
+			<!--第一行中间内容-->
+			<td valign="top" bgcolor="#F7F8F9">
+				<form>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<!-- 空白行-->
+						<tr>
+							<td colspan="2" valign="top">&nbsp;</td>
+							<td>&nbsp;</td>
+							<td valign="top">&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<table>
+									<tr>
+										<td width="100" align="center"><img
+											src="./Images/mime.gif" /></td>
+										<td valign="bottom"><h3 style="letter-spacing: 1px;"></h3></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- 一条线 -->
+						<tr>
+							<td height="40" colspan="4">
+								<table width="100%" height="1" border="0" cellpadding="0"
+									cellspacing="0" bgcolor="#CCCCCC">
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- 添加栏目开始 -->
+						<tr>
+							<td width="2%">&nbsp;</td>
+							<td width="96%">
+								<table width="100%">
+									<tr>
+										<td colspan="2">
+											<form id=ff action="" method="">
+												<table width="100%" class="cont">
+													<tr>
+														<td width="2%">&nbsp;</td>
+														<td>游戏名称：</td>
+														<td width="20%"><input v-model="ganme" name="gname"
+															class="text" type="text" name="cat_name" value="" /></td>
+														<td>设置游戏名称</td>
+														<td width="2%">&nbsp;</td>
+													</tr>
+
+													<tr>
+														<td width="2%">&nbsp;</td>
+														<td>游戏价格：</td>
+														<td width="20%"><input v-model="price" name="price"
+															class="text" type="text" name="cat_name" value="" /></td>
+														<td>设置游戏价格</td>
+														<td width="2%">&nbsp;</td>
+													</tr>
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>游戏上架时间：</td>
+														<td><input v-model="publish_date" name="publish_date"
+															class="Date" type="date" /></td>
+														<td>设置游戏上架的时间</td>
+
+													</tr>
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>游戏类型：</td>
+														<td><select>
+																<option selected="true">请选择...</option>
+																<!-- <option v-for="g in game">{{g.cid}}</option> -->
+																<!--这里需要sql连接查询  -->
+																<option>角色扮演</option>
+																<option>策略经营</option>
+																<option>动作射击</option>
+																<option>3A大作</option>
+														</select></td>
+														<td>设置游戏分类</td>
+														<td>&nbsp;</td>
+													</tr>
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>是否热门：</td>
+														<td><input type="radio" v-model="is_hot"
+															name="is_hot" value="1" /> 是 <input type="radio"
+															v-model="is_hot" name="is_hot" value="0" /> 否</td>
+														<td>设置该游戏是否热门。</td>
+														<td>&nbsp;</td>
+													</tr>
+
+													<!-- <tr>
+													<td>&nbsp;</td>
+													<td>栏目位置：</td>
+													<td><input type="checkbox" name="pos" value="0" /> 顶部
+														<input type="checkbox" name="pos" value="1" /> 底部</td>
+													<td>设置栏目的显示的范围与位置</td>
+													<td>&nbsp;</td> 
+												</tr> -->
+													<!-- <tr>
+													<td>&nbsp;</td>
+													<td>浏览器标题(title)：</td>
+													<td><input class="text" style="width: 200px;"
+														type="text" name="bro_name" value="" /></td>
+													<td>浏览器标题(Title)，有利于SEO</td>
+													<td>&nbsp;</td>
+												</tr> -->
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>游戏背景(Game background):</td>
+														<td><textarea name="desc" v-model="desc"></textarea></td>
+														<td>该游戏的故事背景，在该故事剧情下发生的一系列事件</td>
+														<td>&nbsp;</td>
+													</tr>
+
+													<!-- <tr>
+													<td>&nbsp;</td>
+													<td>描述(Meta Description):：</td>
+													<td><textarea></textarea></td>
+													<td>Description 出现在页面头部的 Meta 标签中，有利于SEO</td>
+													<td>&nbsp;</td>
+												</tr> -->
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>选择图片:</td>
+														<td><input v-model="iamge1" name="image1" type="file"></td>
+														<td><input v-model="image2" name="image2" type="file"></td>
+														<td><input v-model="image3" name="image3" type="file"></td>
+														<td><input v-model="image4" name="image4" type="file"></td>
+													</tr>
+
+													<tr>
+														<td>&nbsp;&nbsp;</td>
+														<td colspan="2"></td>
+
+														<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<button @click="add()">添加</button>
+														</td>
+
+														<td>&nbsp;&nbsp;</td>
+													</tr>
+
+												</table>
+											</form>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td width="2%">&nbsp;</td>
+						</tr>
+						<!-- 添加游戏结束 -->
+						<tr>
+							<td height="40" colspan="4">
+								<table width="100%" height="1" border="0" cellpadding="0"
+									cellspacing="0" bgcolor="#CCCCCC">
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td width="2%">&nbsp;</td>
+							<td width="51%" class="left_txt"><img
+								src="./Images/icon_mail.gif" width="16" height="11">
+									客户服务邮箱：1151227635@qq.com<br /> <img
+									src="./Images/icon_phone.gif" width="17" height="14">
+										官方网站：<a href="xxx" target="_blank"></a></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				</form> <script type="text/javascript">
+				var abc=new Vue({
+					el : "#ff",
+					data : {
+						
+					game : {
+						gname : "",
+						price : "",
+						publish_date : "yyyy-MM-dd",
+						cid : "",
+						desc : "",
+						is_hot : "",
+						image1 : "",
+						image2 : "",
+						image3 : "",
+						image4 : ""
+							}
+					},
+					created(){
+						axios.post("../game.s?op=addGames").then(res=>{
+							this.game=res.data;
+						})
+						},
+						
+						methods:{
+							add(){
+								var fd=new FormData(ff);
+								axios.post("addGames",fd).then(res=>{
+									alert(res.data.msg);
+								}).catch(error=>{
+									alert("系统错误，请联系管理员");
+								})
+							}
+						}
+				})
+			
+			</script>
+
+
+			</td>
+			<td background="./Images/mail_right_bg.gif">&nbsp;</td>
+		</tr>
+		<!-- 底部部分 -->
+		<tr>
+			<td valign="bottom" background="./Images/mail_left_bg.gif"><img
+				src="./Images/buttom_left.gif" width="17" height="17" /></td>
+			<td background="./Images/buttom_bgs.gif"><img
+				src="./Images/buttom_bgs.gif" width="17" height="17"></td>
+			<td valign="bottom" background="./Images/mail_right_bg.gif"><img
+				src="./Images/buttom_right.gif" width="16" height="17" /></td>
+		</tr>
+	</table>
+</body>
+</html>

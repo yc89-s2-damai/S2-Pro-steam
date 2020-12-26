@@ -5,12 +5,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.steam.biz.BizException;
 import com.yc.steam.biz.GameBiz;
 import com.yc.steam.dao.GameDao;
 import com.yc.steam.po.Game;
+import com.yc.steam.po.Result;
 
 @RestController
 public class GameAction {
@@ -61,5 +64,9 @@ public class GameAction {
 	@RequestMapping(path = "game.s",params = "op=queryCatehot")
 	public List<Game> queryCateHot(){
 		return gdao.selectcateIsHot();
+	}
+	@RequestMapping(path = "game.s",params = "op=addGames")
+	public Result addGames(Game game,@RequestParam(value = "file") MultipartFile file){
+		return gdao.addGame(game);
 	}
 }

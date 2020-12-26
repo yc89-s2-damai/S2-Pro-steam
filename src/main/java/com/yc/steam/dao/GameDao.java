@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.yc.steam.po.Game;
+import com.yc.steam.po.Result;
 	
 @Repository
 public class GameDao extends BaseDao{
@@ -79,4 +80,10 @@ public class GameDao extends BaseDao{
 			return g;
 		}
 	};
+
+	public Result addGame(Game game) {
+		String sql="insert into game values(null,?,?,?,?,?,?,?,?,?,?)";
+		return null;
+		
+	}
 }
