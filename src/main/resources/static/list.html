@@ -169,10 +169,10 @@
                             <!--Single Blog Post Start-->
                             <div class="single-blog-post blog-list mb-30" v-for="g in game">
                                 <div class="blog-img">
-                                    <a href="single-blog.html"><img :src="g.image1" alt=""></a>
+                                    <a :href="'detail.html#'+g.gid"><img :src="g.image1" alt=""></a>
                                 </div>
                                 <div class="blog-content">
-                                    <h3><a href="single-blog.html">{{g.gname}}</a></h3>
+                                    <h3><a :href="'detail.html#'+g.gid">{{g.gname}}</a></h3>
                                     <p>{{g.desc}}</p>
                                     <div class="blog-bottom">
                                         <ul class="meta meta-border-bottom">

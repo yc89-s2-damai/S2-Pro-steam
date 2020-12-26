@@ -15,9 +15,8 @@ import com.yc.steam.biz.UserBiz;
 import com.yc.steam.po.User;
 
 @Repository
-public class UserDao extends BaseDao {
-	@Resource
-	private UserBiz ubiz;
+public class UserDao extends BaseDao {	
+	
 
 
 	//从数据库里查找是否有这么一个id 从而实现看注册是否有同名
@@ -29,10 +28,11 @@ public class UserDao extends BaseDao {
 
 		
 	}
-	// 用户注册
-	public void register(User user) throws BizException, SQLException {
-		ubiz.register(user);
-	}
+
+	/*
+	 * // 用户注册 public void register(User user) throws BizException, SQLException {
+	 * ubiz.register(user); }
+	 */
 	public void insert(User user) {
 		String sql = "insert into user values(null,?,?,?,?,now())";
 		jt.update(sql,
@@ -52,9 +52,11 @@ public class UserDao extends BaseDao {
 		}
 	};
 
-	public User login(String uname, String upwd, HttpSession session) throws BizException {
-		
-		return ubiz.login(uname,upwd,session);
-	}
+	/*
+	 * public User login(String uname, String upwd, HttpSession session) throws
+	 * BizException {
+	 * 
+	 * return ubiz.login(uname,upwd,session); }
+	 */
 
 }

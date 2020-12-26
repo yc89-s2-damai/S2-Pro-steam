@@ -124,12 +124,14 @@
                         <h3>请在下面填写您的信息</h3>
 
                         <!-- Login Form -->
-                        <form id=register action="#">
+                        <form id=register>
                             <div class="row">
                                 <div class="col-12 mb-30"><input v-model="user.uname" type="text" placeholder="Your name here"></div>
                                 <div class="col-12 mb-30"><input v-model="user.email" type="email" placeholder="Your email here"></div>
                                 <div class="col-12 mb-30"><input v-model="user.upwd" type="password" placeholder="Enter passward"></div>
-                                <div class="col-12 mb-30"><input v-model="user.phone" type="number" placeholder="Conform phone"></div>
+                                <div class="col-12 mb-30"><input type="text" id="vcode" name="vcode" v-model="vcode" class="text" /></div>
+                                <input @click="send()" type="button" value="send">
+                                <div class="col-12 mb-30"><input v-model="user.phone" type="text" placeholder="Conform phone"></div>
                                 <div class="col-12"><input @click="reg()" type="submit" value="register"></div>
                             </div>
                         </form>
@@ -142,7 +144,8 @@
                         			uname : "",
                         			upwd : "",
                         			email : "",
-                        			phone : ""
+                        			phone : "",
+                        			vcode:""
                         			}
                         		},
                         		methods : {
@@ -153,12 +156,18 @@
     									params.append("email",this.user.email)
     									params.append("phone",this.user.phone)
     									axios.post("reg",params).then(res=>{
-    										alert(res.data);
+    										alert(res.data+"注册成功");
     									})
 
+    								},
+    								send(){
+    									var params=new URLSearchParams();
+    									params.append("email",this.user.email)
+    									axios.post("sendVcode",params).then(res=>{
+    										alert("发送成功")
+    								})
     								}
-    							}
-                        		
+                        		}
                         		
                         	})
                         
