@@ -8,7 +8,9 @@
     
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<div id="clist">
+	<div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" >
             <!-- 头部开始 -->
             <tr>
                 <td width="17" valign="top" background="./Images/mail_left_bg.gif">
@@ -51,7 +53,7 @@
                         <!-- 添加栏目开始 -->
                         <tr>
                             <td width="2%">&nbsp;</td>
-                            <td width="96%" id="clist">
+                            <td width="96%" >
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
@@ -85,45 +87,7 @@
                                 </table>
                                 
                             </td>
-                             <div v-show="is_edit" id="editGoods">
-        <p v-show="is_display">商品编号:<input type="text" v-model="goods_list.id"></p>
-        <p>商品名称:<input type="text" v-model="goods_list.name"></p>
-        <p>商品价格:<input type="text" v-model="goods_list.price"></p>
-        <p v-show="is_display">商品下标:<input type="text" v-model="goods_list.index"></p>
-        <p>
-            <button @click="add_edit">保存</button>
-            <button @click="cancel2">取消</button>
-        </p>
-    </div>
-                            <script type="text/javascript">
-                   var aaa= new Vue({
-                    	el:"#clist",
-                    	data:{
-                    		game:[],
-                   			is_edit:false
-                    	},
-                    	created(){
-                    		axios.get("../game.s?op=queryhou").then(res=>{
-                    			this.game=res.data;
-                    		})
-                    	},methods:{
-    						onclick(gid){
-    							axios.get("../game.s?op=deletedel&gid="+gid).then(res=>{
-    								alert(res.data.msg);//加了msg 刚刚没有绑定方法@click
-    							})
-
-    						},
-    						edit(){
-    			                this.is_edit = false;
-    			                
-    			            },
-    					}
-                    	
-                    	
-                    })
-                    
-                    
-                    </script>
+                             
                             
                             <td width="2%">&nbsp;</td>
                         </tr>
@@ -160,5 +124,56 @@
                 </td>           
             </tr>
         </table>
+        </div>
+        <div v-show="is_edit" >
+        <p >游戏名称:<input type="text" v-model="gname"></p>
+        <p>游戏介绍:<input type="text" v-model="desc"></p>
+        <p>游戏价格:<input type="text" v-model="price"></p>
+        <p >游戏类型:<input type="text" v-model="cid"></p>
+        <p>
+            <button @click="add_edit">保存</button>
+            <button @click="cancel2">取消</button>
+        </p>
+    </div>
+        </div>
+                            <script type="text/javascript">
+                   var aaa= new Vue({
+                    	el:"#clist",
+                    	data:{
+                    		game:[],
+                    		gname:"",
+                    		desc:"",
+                    		price:"",
+                    		cid:"",
+                   			is_edit:false
+                    	},
+                    	created(){
+                    		axios.get("../game.s?op=queryhou").then(res=>{
+                    			this.game=res.data;
+                    		})
+                    	},methods:{
+    						onclick(gid){
+    							axios.get("../game.s?op=deletedel&gid="+gid).then(res=>{
+    								alert(res.data.msg);//加了msg 刚刚没有绑定方法@click
+    							})
+
+    						},
+    						edit(){
+    			                this.is_edit = true;
+    			                
+    			            },
+    			            add_edit(){
+    			            	
+    			            },
+    			            cancel2(){
+    			            	
+    			            }
+    					}
+                    	
+                    	
+                    })
+                    
+                    
+                    </script>
     </body>
 </html>
