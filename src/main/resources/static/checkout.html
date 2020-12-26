@@ -215,9 +215,9 @@
                                            </div>                 
                                        </div>
 
-                                       <button class="place-order df-btn">提交订单</button>
+                                       <button  class="place-order df-btn">提交订单</button>
                                        
-									   <button class="place-order df-btn">取消订单</button>
+									   <button onclick="add_account()" class="place-order df-btn">取消订单</button>
                                    </div>
 
                                </div>
@@ -231,6 +231,36 @@
         </div>
     </div>
     <!--Checkout Area End-->
+    
+    <script >function add_account() {
+         var index = layer.open({            //打开layer弹出框
+                type: 1,                     //类型
+                skin: "layui-layer-rim",     //皮肤类型，在skin文件夹中
+                area: ["400px", "400px"],    //范围大小
+                title: "标题",               //定义标题
+                content: 'html字符串',       //输出的字符串，定义弹出框的html页面
+                btn: ['确定', '取消'],　　　　//按钮
+                yes: function (index, layero) { //确定按钮的处理函数
+                    id_name = $("#id_name").val(); //根据id取数据
+                     $.ajax({
+                        url: '{% url "urlname" %}',      //指向URL名称
+                        type: 'POST',                    //页面传值类型
+                        data: {"key": 'value'},           //提交数据，以字典的形式
+                        success: function (e) {          //提交数据成功后的处理函数，e是返回的值
+                            if (e == 1) {
+                                parent.location.reload(); //刷新父页面
+                                layer.msg("good");
+                            } else {
+                                layer.msg("sorry")
+                            }
+                        },
+                    });
+                },
+                btn2: function (index, layero) { //取消按钮后的处理函数
+                    layer.close(index);
+                },
+            });
+        }</script >
     
      <!--Projects section start-->
     <div class="newslatter-section newslatter-section-tow section pt-5 pt-lg-0 pt-sm-0 pb-xs-50">

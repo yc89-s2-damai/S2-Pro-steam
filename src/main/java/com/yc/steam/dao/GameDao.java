@@ -43,7 +43,7 @@ public class GameDao extends BaseDao{
 			return jt.query(sql, gameRowMapper);
 		}
 	//全部游戏
-	public List<Game>selectAll(){
+	public List<Game> selectAll(){
 		String sql="select * from game";
 		return jt.query(sql, gameRowMapper);
 	}
