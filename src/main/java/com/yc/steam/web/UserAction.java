@@ -2,6 +2,7 @@ package com.yc.steam.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yc.steam.biz.BizException;
 import com.yc.steam.biz.UserBiz;
 import com.yc.steam.dao.UserDao;
+import com.yc.steam.po.Game;
 import com.yc.steam.po.Result;
 import com.yc.steam.po.User;
 
@@ -21,7 +23,11 @@ import com.yc.steam.po.User;
 public class UserAction {	
 	@Resource
 	private UserBiz ubiz;
-	
+	@Resource
+	private UserDao udao;
+	//后台展示
+
+
 	
 	@RequestMapping("reg")
 	public Result reg(User user,HttpSession session) throws BizException, SQLException {
