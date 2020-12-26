@@ -63,7 +63,7 @@ public class UserDao extends BaseDao {
 			user.setUid(rs.getInt("uid"));
 			user.setUname(rs.getString("uname"));
 			user.setUpwd(rs.getString("upwd"));
-			user.setPhone(rs.getInt("phone"));
+			user.setPhone(rs.getString("phone"));
 			return user;
 		}
 	};

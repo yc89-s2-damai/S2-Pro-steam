@@ -15,9 +15,18 @@ import com.yc.steam.po.Cart;
 public class CartDao extends BaseDao{
 	
 	
+	//添加购物车
+	public void addCart(int gid,int uid) {
+		String sql = "insert into cart values(null,?,?,1)";				
+		jt.update(sql,uid,gid);		
+	}
 	
-	
-	
+	public Cart selectCartBygidAndUid(int gid,int uid) {
+		String sql = "select * from cart where gid=? and uid=?";
+		return jt.query(sql, rs->{
+			return rs.next() ? cartRowMapper.mapRow(rs, -1) : null;
+		}, gid,uid);
+	}
 	
 	//查询订单
 	public List<Map<String,Object>> selectCart(Integer uid) {
@@ -26,8 +35,12 @@ public class CartDao extends BaseDao{
 				+ " left join game c on a.gid=c.gid"
 				+ " where a.uid=?", uid);
 	}
-	
-	
+	public Double selectTotalByUid(Integer uid) {
+		String sql="select sum(b.price) from "+
+				   " cart a join game b on a.gid = b.gid "+
+				   " where uid=?";		
+		return jt.queryForObject(sql, Double.class,uid);
+	}
 	
 	//取消订单	
 	public void deleteByUid(Integer uid) {	

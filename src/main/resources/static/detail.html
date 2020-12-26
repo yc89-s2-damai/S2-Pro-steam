@@ -79,14 +79,28 @@
                     
                     </script>
                     <!--Header Right Wrap-->
-                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
+                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3" id="topNav">
                         <div class="header-right-wrap">
                             <ul>
+                            	<li><a href="">欢迎:{{user.uname}}</a></li>                            	
                                 <li><a href="login.html">登录</a></li>
                                 <li><a href="register.html">注册</a></li>                               
                             </ul>
                         </div>
                     </div>
+                    		<script type="text/javascript">
+			var v2 = new Vue({
+				el:"#topNav",
+				data:{
+					user:{}
+				},
+				created(){
+					axios.get("getLoginedUser").then(res=>{
+						this.user = res.data;
+					})
+				}				
+			})				
+		</script>                                        
                     <!--Header Right Wrap-->
                     
                 </div>
@@ -148,82 +162,57 @@
     <!--Games Details Area Start-->
     <div class="games-details-area section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-xs-45">
         <div class="container">
-            <div class="row">
+            <div class="row" id="E01">
                <div class="col-lg-8" >
-                   <div class="row" id="gdetail">
+                   <div class="row">
                        <div class="col-12">
                            <div class="game-image-gallery-wrap">
                             <div class="game-image-large">
                                 <div class="game-image img-full">
-                                    <img src="assets/images/game0101.jpg" alt="">
+                                    <img :src="game.image1" alt="">
                                 </div>
                                 <div class="game-image img-full">
-                                    <img src="assets/images/game0102.jpg" alt="">
+                                    <img :src="game.image2" alt="">
                                 </div>
                                 <div class="game-image img-full">
-                                    <img src="assets/images/game0103.jpg" alt="">
+                                    <img :src="game.image3" alt="">
                                 </div>
                                 <div class="game-image img-full">
-                                    <img src="assets/images/game0104.jpg" alt="">
+                                    <img :src="game.image4" alt="">
                                 </div>
                             </div>
                             <div class="game-image-thumbs">                   
-                                <div class="sm-image"><img src="assets/images/game0101.jpg" alt="product image thumb"></div>
-                                <div class="sm-image"><img src="assets/images/game0102.jpg" alt="product image thumb"></div>
-                                <div class="sm-image"><img src="assets/images/game0103.jpg" alt="product image thumb"></div>
-                                <div class="sm-image"><img src="assets/images/game0104.jpg" alt="product image thumb"></div>
+                                <div class="sm-image"><img :src="game.image1" alt=""></div>
+                                <div class="sm-image"><img :src="game.image2" alt=""></div>
+                                <div class="sm-image"><img :src="game.image3" alt=""></div>
+                                <div class="sm-image"><img :src="game.image4" alt=""></div>
                             </div>
                             <div class="game-description mb-45">
-                               <h3><span >aaaaa</span></h3>
-                               <p><strong>{{game.gname}}</strong> {{game.desc}}</p>
-                               <p>x</p>
+                               <h3>{{game.gname}}</h3>
+                               <p><strong>游戏详情</strong>   </p>
+                               <p>{{game.desc}}</p>
                            </div>
                         </div>
                        </div>
                    </div>
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-       
-     
                </div> 
-               
-                 <script type="text/javascript">
-			var vue = new Vue({
-				el : "#gdetail",
-				data :{
-					game:[]
-				},
-				created(){
-					axios.get("game.s?op=selectBygid&gid="+location.hash.substring(1)).then(res=>{
-						this.game = res.data;
-					})
-				}
-			
-				
-			});
-		
-		</script> 
-               
+
+
                <div class="col-lg-4">
                     <div class="sidebar-area mt-sm-50 mt-xs-50">
                         <!--Single Sidebar Widget Start-->
                         <div class="single-sidebar-widget mb-45">
-                            <h3>热门游戏</h3>
+                            <h3>推荐游戏</h3>
                             <div class="single-featured-game mb-20">
                                 <div class="game-img">
                                     <a href="#"><img src="assets/images/banner/sidebar-banner1.jpg" alt=""></a>
-                                    <a class="game-title" href="#">the killer</a>
+                                    <a class="game-title" href="#">《杀手》</a>
                                 </div>
                             </div>
                             <div class="single-featured-game mb-20">
                                 <div class="game-img">
                                     <a href="#"><img src="assets/images/banner/sidebar-banner2.jpg" alt=""></a>
-                                    <a class="game-title" href="#">muscle cars</a>
+                                    <a class="game-title" href="#">极品飞车</a>
                                 </div>
                             </div>
                         </div>
@@ -241,22 +230,57 @@
                             </div>
                         </div>
                         <!--Single Sidebar Widget End-->
-                        <!--Single Sidebar Widget Start-->
-                        
-                        <!--Single Sidebar Widget End-->
-                        <!--Single Sidebar Widget Start-->
-                      
-                            
-                        <!--Single Sidebar Widget End-->
-                        <!--Single Sidebar Widget Start-->
-                        
-                        <!--Single Sidebar Widget End-->
-                        <!--Single Sidebar Widget Start-->
-                        
+						<!--Single Sidebar Widget Start-->
+                        <div class="single-sidebar-widget mb-45">
+                            <div class="sidebar-social">
+                                <ul>
+                                    <li><button @click="addCart(game.gid)" class="place-order df-btn">加入购物车</button></li>
+                                </ul>
+                            </div>
+                        </div>
                         <!--Single Sidebar Widget End-->
                     </div>
                 </div>
-            </div>
+            </div>                        
+                <script type="text/javascript">
+               new Vue({
+            	   el:"#E01",
+            	   data:{
+            		   game:{}
+            	   },
+            	   created(){
+            		   axios.get("game.s?op=queryById&gid="+location.hash.substring(1)).then(res=>{
+            			this.game=res.data;  
+            		   })
+            		},
+            		methods:{
+            			addCart(){
+            				axios.get("getLoginedUser").then(res=>{
+    							
+    							if( res.data && res.data.uid ){
+    								//console.log(this.$refs.counts.value);
+    								var params = new URLSearchParams();
+    								params.append("op","addCart");
+    								params.append("gid",this.game.gid);
+    								axios.post("cart.s",params).then(res=>{
+    									/* alert(res.data); */
+    									if(res.data.code == 1) {
+    										alert("添加成功");
+    									}else{
+    										alert(res.data.msg);
+    									}
+    								}); 
+    							}else {
+    								alert("你尚未登录");
+    								location.href = "login.html";
+    							}
+    							
+    						});
+            			}
+            		}
+            		
+            	   })               
+               </script>            
         </div>
     </div>
     <!--Games Details Area End-->

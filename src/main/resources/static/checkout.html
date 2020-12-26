@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Checkout || Gilbard</title>
+    <title>购物车 || Gilbard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -79,14 +79,28 @@
                     
                     </script>
                     <!--Header Right Wrap-->
-                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
+                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3" id="topNav">
                         <div class="header-right-wrap">
                             <ul>
+                            	<li><a href="">欢迎:{{user.uname}}</a></li>                            	
                                 <li><a href="login.html">登录</a></li>
                                 <li><a href="register.html">注册</a></li>                               
                             </ul>
                         </div>
                     </div>
+                    		<script type="text/javascript">
+			var v2 = new Vue({
+				el:"#topNav",
+				data:{
+					user:{}
+				},
+				created(){
+					axios.get("getLoginedUser").then(res=>{
+						this.user = res.data;
+					})
+				}				
+			})				
+		</script>                                        
                     <!--Header Right Wrap-->
                     
                 </div>
@@ -148,9 +162,9 @@
     <div class="checkout-area section pt-95 pt-lg-75 pt-md-65 pt-sm-55 pt-xs-45">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12" id="checkout">
                     <!-- Checkout Form Start-->
-                    <form action="#" class="checkout-form">
+                    <form  class="checkout-form">
                        <div class="row row-40">
 
                            <div class="col-lg-7">
@@ -161,20 +175,22 @@
                                    <div class="row">
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>姓名*</label>
-                                           <input type="text" placeholder="Name">
+                                           <input type="text" placeholder="Name" v-model="name">
                                        </div>
-                                       <div class="col-md-6 col-12 mb-20">
-                                           <label>邮箱*</label>
-                                           <input type="email" placeholder="Email">
-                                       </div>
+                                       <li></li>
 
+										<li></li>
                                        <div class="col-md-6 col-12 mb-20">
                                            <label>电话*</label>
-                                           <input type="text" placeholder="Phone number">
+                                           <input type="text" placeholder="Phone number" v-model="phone">
                                        </div>
                                       <div class="col-12 mb-20">
                                            <label>地址*</label>
-                                           <input type="text" placeholder="Address">                                           
+                                           <input type="text" placeholder="Address" v-model="addr">                                           
+                                       </div>
+                                       <div class="col-12 mb-20">
+                                           <img height="350px" height="350px" src="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAFeAQAAAADlUEq3AAABFUlEQVR4Xu3Xy6oCMRCE4ezmsc1jz0KI9k0rOXBw338xSKx8vWsGHev3PMfZ/BOwBqwBa8AasAasAWva4Dkq11p3HrYSrGUrHF/jcI/H+znKBZZy9cK2NlfhvyUYHIeRiwQGb/gYBLfHesiRvQRvt33wqBSzR0pwW7yl/tScAWva4Om/RoI95B9N9hFwSxy9yniyj6UCt8Tfq2A+FcbOgcBdcX7Ge2bZwZaqRsB9sRHrp2+RgdtGpmwUuCfWBJ7ucxzcGBuIXL48NRI+A+6Jq5mxOfFuqTdM3oK74jf49DoSHgxOfLAIGBxfP4/34M74O+XAFmm/AutVIzwqLvNzuK8pcE/8U8AasAasAWvAGrAGrAFrni8qfMJ8kmHiyQAAAABJRU5ErkJggg==">
+                                                                                      
                                        </div>
                                    </div>
                                </div>
@@ -188,12 +204,9 @@
                                        <div class="checkout-cart-total">
                                            <h4>产品 <span>金额</span></h4>
                                            <ul>
-                                               <li>Teritory Quentily X 01 <span>$35.00</span></li>
-                                               <li>Adurite Silocone X 02 <span>$59.00</span></li>
-                                               <li>Baizidale Momone X 01 <span>$78.00</span></li>
-                                               <li>Makorone Cicile X 01 <span>$65.00</span></li>
+                                               <li v-for="c in cart">{{c.gname}} <span>${{c.price}}</span></li>
                                            </ul>
-                                           <p>总计金额 <span>$296.00</span></p>
+                                           <p>总计金额 <span>${{sum}}</span></p>
                                        </div>
                                    </div>
 
@@ -215,7 +228,11 @@
                                            </div>                 
                                        </div>
 
+<<<<<<< HEAD
                                        <button  class="place-order df-btn">提交订单</button>
+=======
+                                       <button class="place-order df-btn" @click="addOrder()">提交订单</button>
+>>>>>>> branch 'main' of https://github.com/yc89-s2-damai/S2-Pro-steam.git
                                        
 									   <button onclick="add_account()" class="place-order df-btn">取消订单</button>
                                    </div>
@@ -227,6 +244,56 @@
                     </form> 
                     <!-- Checkout Form End-->
                 </div>
+                
+                
+                <script type="text/javascript">
+                new Vue({
+                	el:"#checkout",
+                	data:{
+                		name:"",              		
+                		phone:"",
+                		addr:"",
+                		cart:[]
+                	},
+                	created(){
+                		axios.get("cart.s?op=queryCart&uid="+location.hash.substring(1)).then(res=>{
+                			this.cart=res.data;
+                		})
+                	},
+                	computed:{
+        				sum(){
+        					var sum = 0;
+        					for(var i in this.cart){
+        				           sum+=this.cart[i].price;
+        				       }
+        				    return sum;
+        				}
+        			},
+        			methods:{
+        				addOrder(){        					
+        					var params =new URLSearchParams();
+        	    			params.append("name",this.name);
+        	    			params.append("phone",this.phone);
+        	    			params.append("addr",this.addr);
+        	    			axios.post("order.s",params).then(res=>{
+        	    				alert(res.data.msg);
+        	    				alert("订单成功！");
+        	    				})        						
+        				}
+        			}              	
+                })
+                
+                
+                </script>
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </div>
         </div>
     </div>
