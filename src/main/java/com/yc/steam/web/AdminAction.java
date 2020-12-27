@@ -29,7 +29,7 @@ public class AdminAction {
 	public Result loginHou(String aname,String apwd,HttpSession session) throws IOException, EncodeException {
 		Admin admin = null;
 		try {
-			admin = abiz.loginHou(aname,apwd,session);
+			admin = abiz.login(aname,apwd,session);
 			session.setAttribute("loginedUser", admin);
 			return new Result(1, "登录成功");
 		} catch (BizException e) {
