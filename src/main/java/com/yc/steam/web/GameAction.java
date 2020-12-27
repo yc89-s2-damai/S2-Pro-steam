@@ -24,6 +24,7 @@ public class GameAction {
 	@RequestMapping(path="game.s",params = "op=queryTopGame")
 	public List<Game> queryTopGame(){
 		return gdao.selectTop();
+		
 	}
 	//首页精品游戏查询
 	@RequestMapping(path = "game.s",params = "op=queryFeatur")
@@ -71,6 +72,15 @@ public class GameAction {
 	public Game quertById(int gid) {
 		return gdao.selectById(gid);
 	}
-	
+	//后台展示
+	@RequestMapping(path = "game.s",params = "op=queryhou")
+	public List<Game> queryhou() {
+		return gdao.queryhou();
+	}
+	//后台删除
+	@RequestMapping(path = "game.s",params = "op=deletedel")
+	public Game del(int gid){
+		return  gdao.del(gid);
+	}
 	
 }

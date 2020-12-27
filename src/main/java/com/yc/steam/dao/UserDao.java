@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yc.steam.biz.BizException;
 import com.yc.steam.biz.UserBiz;
+import com.yc.steam.po.Admin;
 import com.yc.steam.po.User;
 
 @Repository
@@ -51,7 +52,10 @@ public class UserDao extends BaseDao {
 			return user;
 		}
 	};
-
+	
+	
+	
+	
 	/*
 	 * public User login(String uname, String upwd, HttpSession session) throws
 	 * BizException {

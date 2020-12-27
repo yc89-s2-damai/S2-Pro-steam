@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yc.steam.biz.BizException;
 import com.yc.steam.biz.UserBiz;
 import com.yc.steam.dao.UserDao;
+import com.yc.steam.po.Admin;
 import com.yc.steam.po.Game;
 import com.yc.steam.po.Result;
 import com.yc.steam.po.User;
@@ -26,7 +27,7 @@ public class UserAction {
 	@Resource
 	private UserDao udao;
 	//后台展示
-
+	
 
 	
 	@RequestMapping("reg")
@@ -39,6 +40,7 @@ public class UserAction {
 			return new Result(0, e.getMessage());
 		} 
 	}
+	
 	
 	
 	@RequestMapping("login.s")

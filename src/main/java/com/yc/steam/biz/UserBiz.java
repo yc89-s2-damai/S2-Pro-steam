@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 import com.yc.steam.dao.UserDao;
+import com.yc.steam.po.Admin;
 import com.yc.steam.po.User;
 import com.yc.steam.util.Utils;
 @Service
@@ -58,5 +59,7 @@ public class UserBiz {
 		}
 		return user;
 	}
+
+	
 
 }

@@ -71,6 +71,19 @@ public class GameDao extends BaseDao{
 		return jt.query(sql, gameRowMapper,gid);
 	}
 	
+	//后台展示
+	public List<Game> queryhou(){
+		String sql="select * from game";
+		return jt.query(sql, gameRowMapper);
+	}
+	//后台删除
+	public Game del(int gid) {
+		String sql="delete * from game where gid=?";
+		return jt.query(sql, rs->{
+			return rs.next() ? gameRowMapper.mapRow(rs, -1) : null;
+		}, gid);
+	}
+	
 	private RowMapper<Game> gameRowMapper = new RowMapper<Game>() {
 
 		@Override
@@ -90,4 +103,6 @@ public class GameDao extends BaseDao{
 			return g;
 		}
 	};
+
+	
 }
