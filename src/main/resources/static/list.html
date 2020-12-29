@@ -28,7 +28,7 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>  
 <div id="main-wrapper">
    
-    <!--Header section start-->
+ <!--Header section start-->
     <header class="header header-static bg-black header-sticky">
         <div class="default-header menu-right">
             <div class="container container-1520">
@@ -43,19 +43,19 @@
                     <!--Logo end-->
                     
                     <!--Menu start-->
-                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
+                    <div class="col-lg-6 col-12 order-md-3 order-lg-2 d-flex justify-content-center" id="clist">
                         <nav class="main-menu menu-style-2">
                             <ul>
                                 <li><a href="index.html">主页</a></li>
                                 
                                 <li><a href="games.html">游戏</a>
                                     <ul class="sub-menu">
-                                        <li><a href="games.html">游戏列表</a></li>
+                                        <li ><a href="games.html">游戏列表</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">分类浏览</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="list.html">List</a></li>
+                                    <ul class="sub-menu" >
+                                        <li v-for="c in clist"><a :href="'list.html#'+c.cid">{{c.ctype}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="checkout.html">购物车</a></li>
@@ -63,16 +63,44 @@
                         </nav>
                     </div>
                     <!--Menu end-->
+                    <script type="text/javascript">
+                    new Vue({
+                    	el:"#clist",
+                    	data:{
+                    		clist:[]
+                    	},
+                    	created(){
+                    		axios.get("category.s?op=queryAll").then(res=>{
+                    			this.clist=res.data;
+                    		})
+                    	}
+                    })
                     
+                    
+                    </script>
                     <!--Header Right Wrap-->
-                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3">
+                    <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-3" id="topNav">
                         <div class="header-right-wrap">
                             <ul>
+                            	<li><a href="">欢迎:{{user.uname}}</a></li>                            	
                                 <li><a href="login.html">登录</a></li>
                                 <li><a href="register.html">注册</a></li>                               
                             </ul>
                         </div>
                     </div>
+                    		<script type="text/javascript">
+			var v2 = new Vue({
+				el:"#topNav",
+				data:{
+					user:{}
+				},
+				created(){
+					axios.get("getLoginedUser").then(res=>{
+						this.user = res.data;
+					})
+				}				
+			})				
+		</script>                                        
                     <!--Header Right Wrap-->
                     
                 </div>
@@ -90,22 +118,45 @@
     </header>
     <!--Header section end-->
     
-    <!--Page Banner Area Start-->
-    <div class="page-banner-area" style="background-image: url(assets/images/bg/page-bg.jpg)">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-content text-center">
-                        <h1>KINGS OF THE <br> WARRIORS</h1>
-                        <a class="df-btn" href="#">Buy now</a>
-                        <ul class="page-breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                        </ul>
+    <!--slider section start-->
+    <div class="hero-section section position-relative" id="topimg">
+        <div class="hero-slider" >
+            <!--Hero Item start-->
+            <div v-for="t in top">
+            <div  class="hero-item hero-item-2" :style= " 'background-image:url( '+ t.image1 + ')'">
+                <div class="container container-1520">
+                    <div class="row">
+                        <div class="col-12">
+                            <!--Hero Content start-->
+                            <div class="hero-content">
+                                <h1>{{t.gname}}</h1>
+                                <h2>BETTLE BEGAN’S HERE</h2>
+                                <a class="df-btn"   
+                                :href="'detail.html#'+t.gid">现在购买</a>
+                            </div>
+                            <!--Hero Content end-->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+            <!--Hero Item end-->
+        </div>             
     </div>
+    <script type="text/javascript">
+        new Vue({
+        	el:"#topimg",
+        	data:{
+        		top:[]
+        	},
+        	created(){
+        		axios.get("game.s?op=queryTopGame").then(res=>{
+        			this.top = res.data;        		
+        		})
+        	}
+        })              
+        </script>   
+    <!--slider section end-->
     <!--Page Banner Area End-->
     
     <!--Blog Area Start-->
@@ -118,10 +169,10 @@
                             <!--Single Blog Post Start-->
                             <div class="single-blog-post blog-list mb-30" v-for="g in game">
                                 <div class="blog-img">
-                                    <a href="single-blog.html"><img :src="g.image1" alt=""></a>
+                                    <a :href="'detail.html#'+g.gid"><img :src="g.image1" alt=""></a>
                                 </div>
                                 <div class="blog-content">
-                                    <h3><a href="single-blog.html">{{g.gname}}</a></h3>
+                                    <h3><a :href="'detail.html#'+g.gid">{{g.gname}}</a></h3>
                                     <p>{{g.desc}}</p>
                                     <div class="blog-bottom">
                                         <ul class="meta meta-border-bottom">
@@ -222,7 +273,7 @@
                         <!--Single Sidebar Widget Start-->
                         <div class="single-sidebar-widget mb-45" id="new">
                             <h3>最新游戏</h3>
-                            <div class="popular-game mb-20" v-for="n in ngame">>
+                            <div class="popular-game mb-20" v-for="n in ngame">
                                 <div class="game-img">
                                      <a :href="'detail.html#'+n.gid"><img :src="n.image2" alt=""></a>
                                 </div>

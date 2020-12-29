@@ -33,7 +33,7 @@ public class OrderDao extends BaseDao{
 		String sql="update orders set state=1 where oid=?";
 		jt.update(sql,oid);
 	}
-	//查询待处理订单
+	//查询处理订单
 		public List<Order> selectOrder1() {
 			String sql="select * from orders where state=1";
 			return jt.query(sql, orderRowMapper);
