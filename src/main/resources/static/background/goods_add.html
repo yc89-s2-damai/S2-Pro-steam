@@ -3,6 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -66,112 +68,107 @@
 								<tr>
 									<td colspan="2">
 										<form action="" method="">
-											<table width="100%" class="cont">
+											<table width="100%" class="cont" id="E01">
 												<tr>
 													<td width="2%">&nbsp;</td>
-													<td width="15%">产品名称：</td>
-													<td width="25%"><input class="text" type="text"
-														name="cat_name" value="" /></td>
-													<td>设置产品名称</td>
+													<td width="15%">游戏名称：</td>
+													<td width="25%"><input  type="text"
+														name="gname" v-model="gname" /></td>
+													<td>设置游戏名称</td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 												<tr>
 													<td width="2%">&nbsp;</td>
-													<td>产品编号：</td>
-													<td width="20%"><input class="text" type="text"
-														name="cat_name" value="" /></td>
-													<td>设置产品编号，不填将自动创建!</td>
+													<td>编号：</td>
+													<td width="20%"><input class="text" type="text" readonly="readonly"
+														name="gid"v-model="gid" value="" /></td>
+													<td></td>
 													<td width="2%">&nbsp;</td>
-												</tr>
+												</tr>												
 												<tr>
 													<td width="2%">&nbsp;</td>
-													<td>产品图片：</td>
-													<td width="20%"><input type="file" name="cat_name" /></td>
-													<td>上传产品图片</td>
-													<td width="2%">&nbsp;</td>
-												</tr>
-												<tr>
-													<td width="2%">&nbsp;</td>
-													<td>库存量：</td>
-													<td width="20%"><input class="text"
-														style="width: 50px;" type="text" name="cat_name" value="" /></td>
-													<td>设置产品编号，不填将自动创建!</td>
-													<td width="2%">&nbsp;</td>
-												</tr>
-												<tr>
-													<td width="2%">&nbsp;</td>
-													<td>产品价格：</td>
-													<td width="20%"><input class="text"
-														style="width: 100px;" type="text" name="cat_name" value="" /></td>
-													<td>填写产品价格</td>
+													<td>价格：</td>
+													<td width="20%"><input class="text" v-model="gprice"
+														style="width: 100px;" type="text" name="gprice" value="" /></td>
+													<td>填写价格</td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
-													<td>产品星级：</td>
-													<td><select>
-															<option selected="true">请选择...</option>
-															<option>单页</option>
-															<option>文章列表</option>
+													<td>游戏类型：</td>
+													<td><select id="gtype" v-model="gtype" value="1">
+															<option value="1">角色扮演</option>
+															<option value="2">策略经营</option>
+															<option value="3">动作射击</option>
+															<option value="4">3A大作</option>
 													</select></td>
-													<td>设置产品级别</td>
+													<td>设置游戏类型</td>
 													<td>&nbsp;</td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
-													<td>产品属性：</td>
-													<td><select>
-															<option selected="true">请选择...</option>
-															<option>顶级栏目</option>
-															<option>公司动态</option>
-															<option>产品展示</option>
-															<option>关于我们</option>
-													</select></td>
-													<td>设置产品属性</td>
+													<td>描述：</td>
+													<td><textarea v-model="gdesc" name="gdesc"></textarea></td>
+													<td>简短描述</td>
 													<td>&nbsp;</td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
-													<td>产品分类：</td>
-													<td><select>
-															<option selected="true">请选择...</option>
-															<option>顶级栏目</option>
-															<option>公司动态</option>
-															<option>产品展示</option>
-															<option>关于我们</option>
-													</select></td>
-													<td>设置产品分类</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td>浏览器标题(title)：</td>
-													<td><input class="text" style="width: 200px;"
-														type="text" name="bro_name" value="" /></td>
-													<td>浏览器标题(Title)，有利于SEO</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td>关键字(Keywords)：</td>
-													<td><textarea></textarea></td>
-													<td>设置关键字，便于查询</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td>描述(Description)：</td>
-													<td><textarea></textarea></td>
-													<td>产品简短描述</td>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td colspan="3"><input class="btn" type="submit"
-														value="提交" /></td>
+													<td colspan="3"><input class="btn" type="button"@click="update()"
+														value="修改" /></td>
+														<td colspan="3"><input class="btn" type="button"@click="del()"
+														value="删除" /></td>
 													<td>&nbsp;</td>
 												</tr>
 											</table>
+											<script type="text/javascript">
+											new Vue({
+												el:"#E01",
+												data:{
+													game:[],
+													gname:"",
+													gtype:"",
+													gid:"",
+													gprice:"",
+													gdesc:""
+												},
+												created(){
+													axios.get
+													("../game.s?op=querycById&gid="+location.hash.substring(1)).then(res=>{
+															console.log(res.data);
+															this.game=res.data;
+															this.gname=res.data.gname;
+															this.gtype.value=res.data.cid;
+															this.gid=res.data.gid;
+															this.gprice=res.data.price;
+															this.gdesc=res.data.gdesc;
+													})
+												},
+												methods:{
+													update(){
+														var params = new URLSearchParams();
+					                        			params.append("gname",this.gname);
+					                        			params.append("gid",this.gid);
+					                        			params.append("price",this.gprice);
+					                        			params.append("gdesc",this.gdesc);
+					                        			axios.post("../updateById",params).then(res=>{
+					                        				alert("修改成功");
+					                        			})
+													},
+													del(){
+														axios.get("../game.s?op=delById&gid="+location.hash.substring(1)).then(res=>{
+															
+														})
+													}
+												}
+											})
+											</script>
+											
+											
+											
+											
+											
+											
 										</form>
 									</td>
 								</tr>

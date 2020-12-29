@@ -12,7 +12,7 @@ public class Game implements java.io.Serializable{
 	
 	private Integer gid;
 	private String gname;
-	private String desc;
+	private String gdesc;
 	private Date publishDate;
 	private String image1;
 	private String image2;
@@ -40,11 +40,11 @@ public class Game implements java.io.Serializable{
 	public void setGname(String gname) {
 		this.gname = gname;
 	}
-	public String getDesc() {
-		return desc;
+	public String getGdesc() {
+		return gdesc;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setGdesc(String gdesc) {
+		this.gdesc = gdesc;
 	}
 	public Date getPublishDate() {
 		return publishDate;
@@ -90,7 +90,7 @@ public class Game implements java.io.Serializable{
 	}
 	@Override
 	public String toString() {
-		return "game [gid=" + gid + ", gname=" + gname + ", desc=" + desc + ", publishDate=" + publishDate + ", image1="
+		return "game [gid=" + gid + ", gname=" + gname + ", gdesc=" + gdesc + ", publishDate=" + publishDate + ", image1="
 				+ image1 + ", image2=" + image2 + ", image3=" + image3 + ", image4=" + image4 + ", cid=" + cid
 				+ ", price=" + price + ", isHot=" + isHot + "]";
 	}

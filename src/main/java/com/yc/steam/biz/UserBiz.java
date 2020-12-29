@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-
 import com.yc.steam.dao.UserDao;
 import com.yc.steam.po.User;
 import com.yc.steam.util.Utils;
@@ -16,8 +15,16 @@ public class UserBiz {
 	@Resource
 	private UserDao udao;
 	
-
-
+	@Resource
+	private MailBiz mbiz;
+	public String sendVcode(String email) {
+		// 生成随机验证码
+		String vcode = "" + System.currentTimeMillis();
+		vcode = vcode.substring(vcode.length()-4);
+		mbiz.sendSimpleMail(email, "申请账号验证码","请使用"+vcode+"验证码来注册");
+		return vcode;
+	}
+	
 	public void register(User user) throws BizException, SQLException {
 		// 字段验证
 		

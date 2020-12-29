@@ -3,6 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
     <body>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -52,90 +54,41 @@
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
+                                        <div id="games">
                                             <form action="" method="">
                                                 <table width="100%"  class="cont tr_color">
                                                     <tr>
                                                         <th>排序</th>
-                                                        <th>栏目名称</th>
-                                                        <th>栏目类型</th>
-                                                        <th>显示/隐藏</th>
-                                                        <th>栏目位置</th>
+                                                        <th>游戏名称</th>
+                                                        <th>游戏类型</th>
+                                                        <th>游戏价格</th>
+                                                        <th width="50%">游戏描述</th>
                                                         <th>操作</th>
                                                     </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>1</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>2</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>3</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>4</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>5</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>6</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>7</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>5</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td>6</td>
-                                                        <td>公司首页</td>
-                                                        <td>链接</td>
-                                                        <td>显示</td>
-                                                        <td>顶部底部</td>
-                                                        <td>编辑 删除 内容管理</td>
-                                                    </tr>
+                                                    <tr align="center" class="d" v-for="g in game">
+                                                        <td>{{g.gid}}</td>
+                                                        <td>{{g.gname}}</td>
+                                                        <td>{{g.ctype}}</td>
+                                                        <td>{{g.price}}$</td>
+                                                        <td>{{g.gdesc}}</td>
+                                                        <td><a :href="'goods_add.html#'+g.gid">修改</a></td>
+                                                    </tr>                                                    
                                                 </table>
                                             </form>
+                                            </div>
+                                            <script type="text/javascript">
+                                            new Vue({
+                                            	el:"#games",
+                                            	data:{
+                                            		game:[],
+                                            	},
+                                            	created(){
+                                            		axios.get("../game.s?op=selectGamesAll").then(res=>{
+                                            			this.game=res.data;
+                                            		})
+                                            	}                                            	
+                                            })
+                                            </script>
                                         </td>
                                     </tr>
                                 </table>
@@ -153,7 +106,7 @@
                         <tr>
                             <td width="2%">&nbsp;</td>
                             <td width="51%" class="left_txt">
-                                <img src="./Images/icon_mail.gif" width="16" height="11"> 客户服务邮箱：XXX<br />
+                                <img src="./Images/icon_mail.gif" width="16" height="11"> 客户服务邮箱：578967667@qq.com<br />
                                 <img src="./Images/icon_phone.gif" width="17" height="14"> 官方网站：<a href="XXX" target="_blank"></a>
                             </td>
                             <td>&nbsp;</td><td>&nbsp;</td>

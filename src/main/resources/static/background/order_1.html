@@ -3,6 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
     <body>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -52,91 +54,53 @@
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
-                                            <form action="" method="">
+                                            <form id="E01">
                                                 <table width="100%"  class="cont tr_color">
                                                     <tr>
-                                                        <th>选中</th>
-                                                        <th>订单编号/下单时间</th>
-                                                        <th>订单产品列表</th>
+                                                        <th>订单编号</th>
+                                                        <th>订单时间</th>
                                                         <th>订单金额</th>
-                                                        <th>收货人信息</th>
+                                                        <th>收货人电话</th>
+                                                        <th>收货人姓名</th>
+                                                        <th>收货人地址</th>
                                                         <th>订单状态</th>
                                                         <th>操作</th>
                                                     </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
-                                                    <tr align="center" class="d">
-                                                        <td><input type="checkbox" value="" /></td>
-                                                        <td>1</td>
-                                                        <td>小米手机</td>
-                                                        <td>1499</td>
-                                                        <td>手机</td>
-                                                        <td>3G手机</td>
-                                                        <td>删除</td>
-                                                    </tr>
+                                                    <tr align="center" class="d" v-for="o in orders">
+                                                        <td>{{o.oid}}</td>
+                                                        <td>{{o.orderTime}}</td>
+                                                        <td>{{o.total}}</td>
+                                                        <td>{{o.phone}}</td>
+                                                        <td>{{o.name}}</td>
+                                                        <td>{{o.addr}}</td>
+                                                        <td>{{o.state}}</td>
+                                                        <td colspan="3"><input class="btn" type="button"@click="update(o.oid)"
+														value="修改" /></td>
+                                                    </tr>                                                  
                                                 </table>
                                             </form>
+                                            <script type="text/javascript">
+											new Vue({
+												el:"#E01",
+												data:{
+													orders:[]
+												},
+												created(){
+													axios.get("../selectOrders").then(res=>{
+														this.orders=res.data;
+													})
+												},
+												methods:{
+													update(oid){
+														axios.post("../order.s?op=updateOne&oid="+oid).then(res=>{
+															alert("发货成功！");
+														})
+													}
+												}
+											})				
+											</script>
+                                            
+                                            
                                         </td>
                                     </tr>
                                 </table>
@@ -154,7 +118,7 @@
                         <tr>
                             <td width="2%">&nbsp;</td>
                             <td width="51%" class="left_txt">
-                                <img src="./Images/icon_mail.gif" width="16" height="11"> 客户服务邮箱：XXX<br />
+                                <img src="./Images/icon_mail.gif" width="16" height="11"> 客户服务邮箱：578967667@qq.com<br />
                                 <img src="./Images/icon_phone.gif" width="17" height="14"> 官方网站：<a href="XXX" target="_blank"></a>
                             </td>
                             <td>&nbsp;</td><td>&nbsp;</td>
