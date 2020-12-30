@@ -1,11 +1,16 @@
 package com.yc.steam.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.yc.steam.biz.BizException;
 import com.yc.steam.biz.GameBiz;
 import com.yc.steam.dao.GameDao;
@@ -93,6 +98,18 @@ public class GameAction {
 		gdao.updateGameById(game);
 		return Result.success("商品修改成功!");
 	}
-	
+	@RequestMapping(path = "game.s",params = "op=addGame")
+	public Result addGame(@RequestParam(value="images") MultipartFile[] files,Game game) throws IllegalStateException, IOException {
+		String filepath ="d:/a/";
+		for(MultipartFile file:files) {
+			file.transferTo(new File(filepath + file.getOriginalFilename()));
+		}
+		game.setImage1("assets/images/game"+files[0].getOriginalFilename());
+		game.setImage2("assets/images/game"+files[1].getOriginalFilename());
+		game.setImage3("assets/images/game"+files[2].getOriginalFilename());
+		game.setImage4("assets/images/game"+files[3].getOriginalFilename());
+		gdao.addGame(game);
+		return Result.success("添加成功!");
+	}
 	
 }

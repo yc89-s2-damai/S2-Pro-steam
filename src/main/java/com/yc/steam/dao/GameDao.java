@@ -64,7 +64,6 @@ public class GameDao extends BaseDao{
 		}, gid);
 	}
 	
-	
 	public List<Game> selectAll(int cid){
 		String sql="select * from game where cid=?";
 		return jt.query(sql, gameRowMapper,cid);
@@ -95,9 +94,18 @@ public class GameDao extends BaseDao{
 		}
 	};
 	//添加游戏
-	public Result addGame(Game game) {
+	public void addGame(Game game) {
 		String sql="insert into game values(null,?,?,?,?,?,?,?,?,?,?)";
-		return null;
+		jt.update(sql,game.getGname(),
+					  game.getGdesc(),
+					  game.getPublishDate(),
+					  game.getImage1(),
+					  game.getImage2(),
+					  game.getImage3(),
+					  game.getImage4(),
+					  game.getCid(),
+					  game.getPrice(),
+					  game.getIsHot());
 		
 	}
 	//查询所有游戏包括类型
