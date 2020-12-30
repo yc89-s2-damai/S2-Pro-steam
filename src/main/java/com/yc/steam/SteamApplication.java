@@ -27,7 +27,7 @@ public class SteamApplication implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		System.out.println("===========================");
-		String filepath = "d:/a/";
+		String filepath = "root/a/";
 		registry.addResourceHandler("/assets/images/**").addResourceLocations("file:" + filepath);
 		// WebMvcConfigurer.super.addResourceHandlers(registry);
 		// registry.addResourceHandler("/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX
