@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,11 +28,11 @@ public class SteamApplication implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		System.out.println("===========================");
-		String filepath = "root/a/";
-		registry.addResourceHandler("/assets/images/**").addResourceLocations("file:" + filepath);
+		String filepath = "/root/a/";
+		registry.addResourceHandler("/**").addResourceLocations("file:" + filepath);
 		// WebMvcConfigurer.super.addResourceHandlers(registry);
-		// registry.addResourceHandler("/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX
-		// + "/static/");
+		 registry.addResourceHandler("/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX
+		 + "/static/");
 	}
 	
 }
